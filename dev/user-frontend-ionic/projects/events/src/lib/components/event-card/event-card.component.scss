@@ -1,0 +1,25 @@
+ion-card {
+  cursor: pointer;
+  margin: 8px;
+
+  ion-card-title {
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+
+  ion-card-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  ion-card-content {
+    padding-top: 0;
+
+    ion-icon {
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+  }
+}

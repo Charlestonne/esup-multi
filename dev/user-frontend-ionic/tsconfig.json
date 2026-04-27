@@ -73,6 +73,9 @@
       "@multi/unread-mail": [
         "dist/unread-mail"
       ],
+      "@multi/events": [
+        "dist/events"
+      ],
       "@multi/calendar": [
         "dist/calendar"
       ],

@@ -42,6 +42,7 @@
     "back:map": "cd dev/user-backend-nest/microservices/map && ",
     "back:notifications": "cd dev/user-backend-nest/microservices/notifications && ",
     "back:restaurants": "cd dev/user-backend-nest/microservices/restaurants && ",
+    "back:events": "cd dev/user-backend-nest/microservices/events && ",
     "back:rss": "cd dev/user-backend-nest/microservices/rss && ",
     "back:schedule": "cd dev/user-backend-nest/microservices/schedule && ",
     "back:social-network": "cd dev/user-backend-nest/microservices/social-network && ",
