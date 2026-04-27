@@ -2,7 +2,6 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { KeepaliveHttpModule } from '../keepalive-http.module';
-import { LikesModule } from '../likes/likes.module';
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 
@@ -10,7 +9,6 @@ import { EventsService } from './events.service';
   imports: [
     ConfigModule,
     KeepaliveHttpModule,
-    LikesModule,
     CacheModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

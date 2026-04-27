@@ -1,4 +1,4 @@
-<ion-card (click)="onCardClick()">
+<ion-card>
   <ion-img *ngIf="event.imageUrl" [src]="event.imageUrl"></ion-img>
   <ion-card-header>
     <ion-chip *ngIf="event.association" color="primary" outline="true">
@@ -14,21 +14,7 @@
     </ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-    <ion-row class="ion-align-items-center">
-      <ion-col>
-        <ion-icon name="location-outline"></ion-icon>
-        <span class="app-text-4">{{ event.location }}</span>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-button fill="clear" (click)="onLikeClick($event)">
-          <ion-icon
-            slot="start"
-            [name]="event.isLikedByUser ? 'heart' : 'heart-outline'"
-            [color]="event.isLikedByUser ? 'danger' : 'medium'"
-          ></ion-icon>
-          <ion-label>{{ event.likesCount }}</ion-label>
-        </ion-button>
-      </ion-col>
-    </ion-row>
+    <ion-icon name="location-outline"></ion-icon>
+    <span class="app-text-4">{{ event.location }}</span>
   </ion-card-content>
 </ion-card>

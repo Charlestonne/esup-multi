@@ -2,57 +2,11 @@
 <ion-content>
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 
-  <ion-toolbar>
-    <ion-segment [value]="sortOption" (ionChange)="onSortChange($event)">
-      <ion-segment-button value="date">
-        <ion-label>{{ 'EVENTS.SORT.DATE' | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="likes">
-        <ion-label>{{ 'EVENTS.SORT.LIKES' | translate }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-
-  <ion-toolbar>
-    <ion-row class="ion-align-items-center">
-      <ion-col>
-        <ion-chip
-          [color]="filters.association ? 'primary' : 'medium'"
-          (click)="openFilterSheet('association')"
-        >
-          <ion-label>{{ filters.association || ('EVENTS.FILTER.ASSOCIATION' | translate) }}</ion-label>
-          <ion-icon *ngIf="filters.association" name="close-circle" (click)="$event.stopPropagation(); filters.association = undefined; buildFilteredEvents()"></ion-icon>
-        </ion-chip>
-        <ion-chip
-          [color]="filters.type ? 'primary' : 'medium'"
-          (click)="openFilterSheet('type')"
-        >
-          <ion-label>{{ filters.type || ('EVENTS.FILTER.TYPE' | translate) }}</ion-label>
-          <ion-icon *ngIf="filters.type" name="close-circle" (click)="$event.stopPropagation(); filters.type = undefined; buildFilteredEvents()"></ion-icon>
-        </ion-chip>
-        <ion-chip
-          [color]="filters.location ? 'primary' : 'medium'"
-          (click)="openFilterSheet('location')"
-        >
-          <ion-label>{{ filters.location || ('EVENTS.FILTER.LOCATION' | translate) }}</ion-label>
-          <ion-icon *ngIf="filters.location" name="close-circle" (click)="$event.stopPropagation(); filters.location = undefined; buildFilteredEvents()"></ion-icon>
-        </ion-chip>
-      </ion-col>
-      <ion-col size="auto">
-        <ion-button fill="clear" size="small" (click)="navigateToMap()">
-          <ion-icon slot="icon-only" name="map-outline"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-
-  <ng-container *ngIf="filteredEvents$ | async as events">
+  <ng-container *ngIf="events$ | async as events">
     <ng-container *ngIf="events.length > 0; else empty">
       <app-event-card
         *ngFor="let event of events"
         [event]="event"
-        (likeToggled)="toggleLike(event)"
-        (cardClicked)="navigateToDetail($event)"
       ></app-event-card>
     </ng-container>
     <ng-template #empty>

@@ -781,48 +781,6 @@ export class AppController {
     return this.eventsClient.send({ cmd: 'events' }, {});
   }
 
-  @Post('/event/like')
-  likeEvent(@Body() body) {
-    return this.authClient
-      .send({ cmd: 'getUserOrThrowError' }, body)
-      .pipe(
-        concatMap((user) =>
-          this.eventsClient.send(
-            { cmd: 'event/like' },
-            { eventId: body.eventId, username: user.username },
-          ),
-        ),
-      );
-  }
-
-  @Post('/event/unlike')
-  unlikeEvent(@Body() body) {
-    return this.authClient
-      .send({ cmd: 'getUserOrThrowError' }, body)
-      .pipe(
-        concatMap((user) =>
-          this.eventsClient.send(
-            { cmd: 'event/unlike' },
-            { eventId: body.eventId, username: user.username },
-          ),
-        ),
-      );
-  }
-
-  @Post('/event/user-likes')
-  getUserLikes(@Body() body) {
-    return this.authClient
-      .send({ cmd: 'getUserOrThrowError' }, body)
-      .pipe(
-        concatMap((user) =>
-          this.eventsClient.send(
-            { cmd: 'event/user-likes' },
-            { username: user.username },
-          ),
-        ),
-      );
-  }
-
   @Get('/version')
   mainVersion() {
     return {

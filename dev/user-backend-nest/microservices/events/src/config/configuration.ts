@@ -11,7 +11,6 @@ export default (): {
   keepAliveOptions: KeepAliveOptions;
   cacheTtlMs: number;
   cacheMax: number;
-  mongoUri: string;
 } => {
   const keepAliveOptions: KeepAliveOptions = {};
 
@@ -58,8 +57,5 @@ export default (): {
     keepAliveOptions,
     cacheTtlMs: parseInt(process.env.EVENTS_SERVICE_CACHE_TTL_MS) || 300000,
     cacheMax: parseInt(process.env.EVENTS_SERVICE_CACHE_MAX) || 200,
-    mongoUri:
-      process.env.EVENTS_SERVICE_MONGODB_URI ||
-      'mongodb://localhost:27017/events',
   };
 };

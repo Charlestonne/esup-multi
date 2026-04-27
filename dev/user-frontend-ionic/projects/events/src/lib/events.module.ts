@@ -5,8 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ProjectModuleService, SharedComponentsModule } from '@multi/shared';
 import { EventsRoutingModule } from './events-routing.module';
 import { EventsListPage } from './pages/events-list/events-list.page';
-import { EventDetailPage } from './pages/event-detail/event-detail.page';
-import { EventsMapPage } from './pages/events-map/events-map.page';
 import { EventCardComponent } from './components/event-card/event-card.component';
 
 const initModule = (projectModuleService: ProjectModuleService) =>
@@ -19,8 +17,6 @@ const initModule = (projectModuleService: ProjectModuleService) =>
 @NgModule({
   declarations: [
     EventsListPage,
-    EventDetailPage,
-    EventsMapPage,
     EventCardComponent,
   ],
   providers: [
