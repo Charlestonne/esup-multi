@@ -372,7 +372,6 @@
             ]
           }
         }
-
       }
     },
     "card": {
@@ -533,7 +532,6 @@
             ]
           }
         }
-
       }
     },
     "contacts": {
@@ -614,7 +612,6 @@
             ]
           }
         }
-
       }
     },
     "guided-tour": {
@@ -695,7 +692,6 @@
             ]
           }
         }
-
       }
     },
     "map": {
@@ -776,7 +772,6 @@
             ]
           }
         }
-
       }
     },
     "notifications": {
@@ -817,7 +812,6 @@
             ]
           }
         }
-
       }
     },
     "preferences": {
@@ -900,6 +894,38 @@
         }
       }
     },
+    "events": {
+      "projectType": "library",
+      "root": "projects/events",
+      "sourceRoot": "projects/events/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/events/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/events/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/events/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/events/**/*.ts",
+              "projects/events/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "restaurants": {
       "projectType": "library",
       "root": "projects/restaurants",
@@ -938,7 +964,6 @@
             ]
           }
         }
-
       }
     },
     "rss": {
@@ -1019,7 +1044,6 @@
             ]
           }
         }
-
       }
     },
     "shared": {
