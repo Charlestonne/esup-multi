@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ProjectModuleService, SharedComponentsModule } from '@multi/shared';
 import { EventsRoutingModule } from './events-routing.module';
 import { EventsListPage } from './pages/events-list/events-list.page';
+import { EventsCalendarPage } from './pages/events-calendar/events-calendar.page';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { RouterModule } from '@angular/router';
 import { EventDetailPage } from './pages/event-detail/event-detail.page';
@@ -19,6 +20,7 @@ const initModule = (projectModuleService: ProjectModuleService) =>
 @NgModule({
   declarations: [
     EventsListPage,
+    EventsCalendarPage,
     EventCardComponent,
     EventDetailPage,
   ],

@@ -1,0 +1,8 @@
+{
+  "EVENTS": {
+    "FEED": "Feed",
+    "CALENDAR": "Calendar",
+    "CALENDAR_PLACEHOLDER": "The events calendar will be available soon.",
+    "NO_DATA": "No events available"
+  }
+}

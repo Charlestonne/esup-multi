@@ -1,0 +1,8 @@
+{
+  "EVENTS": {
+    "FEED": "Flux",
+    "CALENDAR": "Calendrier",
+    "CALENDAR_PLACEHOLDER": "Le calendrier des événements sera bientôt disponible.",
+    "NO_DATA": "Aucun événement disponible"
+  }
+}
