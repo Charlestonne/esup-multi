@@ -17,6 +17,8 @@ node_modules/
 .tabnine/
 .copilot/
 .agents/
+skills/
+skills-lock.json
 
 /ci-config/*
 !/ci-config/gitlab-example/
