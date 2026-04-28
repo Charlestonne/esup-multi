@@ -10,4 +10,6 @@ export interface Event {
   startDate: string;
   endDate?: string;
   imageUrl?: string;
+  locationLat?: number;
+  locationLng?: number;
 }

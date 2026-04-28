@@ -1,0 +1,82 @@
+<app-header></app-header>
+<ion-content>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ng-container *ngIf="event">
+
+    <!-- ─── Header ───────────────────────────────────────────────────── -->
+    <div class="detail-head">
+      <div class="detail-head__accent"></div>
+      <div class="detail-head__body">
+        <span class="detail-head__type" *ngIf="event.type">{{ event.type }}</span>
+        <h1 class="detail-head__title">{{ event.title }}</h1>
+        <div class="detail-head__organizer" *ngIf="event.creator">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <span class="detail-head__creator">{{ event.creator }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Corps ────────────────────────────────────────────────────── -->
+    <div class="detail-body">
+
+      <!-- Dates -->
+      <div class="detail-dates">
+        <ng-container *ngIf="!event.endDate">
+          <div class="date-chip">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span class="date-chip__date">{{ event.startDate | date:'dd/MM/yyyy' }}</span>
+            <span class="date-chip__sep">·</span>
+            <span class="date-chip__time">{{ event.startDate | date:'HH:mm' }}</span>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="event.endDate">
+          <div class="date-range">
+            <div class="date-range__item">
+              <span class="date-range__label">Début</span>
+              <span class="date-range__val">{{ event.startDate | date:'dd/MM' }}</span>
+              <span class="date-range__time">{{ event.startDate | date:'HH:mm' }}</span>
+            </div>
+            <ion-icon name="arrow-forward-outline" class="date-range__arrow"></ion-icon>
+            <div class="date-range__item">
+              <span class="date-range__label">Fin</span>
+              <span class="date-range__val">{{ event.endDate | date:'dd/MM' }}</span>
+              <span class="date-range__time">{{ event.endDate | date:'HH:mm' }}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Description -->
+      <p class="detail-description" *ngIf="event.description">{{ event.description }}</p>
+
+      <!-- Lieu -->
+      <div class="detail-location" *ngIf="event.location">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>{{ event.location }}</span>
+      </div>
+      <div id="event-map" class="event-map" *ngIf="event.locationLat && event.locationLng"></div>
+
+      <!-- Contact -->
+      <div class="detail-contact" *ngIf="event.contactInfo">
+        <p class="detail-contact__label">Contacter l'organisateur</p>
+        <ng-container *ngFor="let contact of getContactLinks()">
+          <ion-button
+            *ngIf="isEmail(contact)"
+            [href]="'mailto:' + contact"
+            expand="block"
+            class="contact-btn"
+          >
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+            {{ contact }}
+          </ion-button>
+          <div class="contact-phone" *ngIf="!isEmail(contact)">
+            <ion-icon name="call-outline"></ion-icon>
+            <span>{{ contact }}</span>
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+  </ng-container>
+</ion-content>

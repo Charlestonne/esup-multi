@@ -1,4 +1,4 @@
-<ion-card>
+<ion-card [routerLink]="['/events', event.id]">
   <ion-img *ngIf="event.imageUrl" [src]="event.imageUrl"></ion-img>
   <ion-card-header>
     <ion-chip *ngIf="event.association" color="primary" outline="true">

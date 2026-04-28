@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Event } from '../../models/event.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-event-card',
