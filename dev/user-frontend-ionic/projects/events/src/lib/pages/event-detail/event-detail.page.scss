@@ -1,0 +1,16 @@
+.event-map {
+  height: 250px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.event-detail-container {
+  .section {
+    margin-top: 16px;
+  }
+  .label {
+    font-size: 0.75rem;
+    color: var(--ion-color-medium);
+  }
+}

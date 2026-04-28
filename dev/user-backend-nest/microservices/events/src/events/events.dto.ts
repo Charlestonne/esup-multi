@@ -10,6 +10,8 @@ export interface EventExternalApiDto {
   startDate: string;
   endDate?: string;
   imageUrl?: string;
+  locationLat?: number;
+  locationLng?: number;
 }
 
 export interface EventDto {
@@ -24,4 +26,6 @@ export interface EventDto {
   startDate: string;
   endDate?: string;
   imageUrl?: string;
+  locationLat?: number;
+  locationLng?: number;
 }
