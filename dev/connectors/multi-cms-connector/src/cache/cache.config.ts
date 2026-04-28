@@ -74,6 +74,7 @@ export function getCacheTTL(collection: CacheCollection): number {
   }
 
   // Fallback values if .env is not configured
+  // Si la variable d'environnement n'est pas définie, on utilise ces valeurs par défaut pour chaque collection
   const fallbackConfig: Record<CacheCollection, number> = {
     [CacheCollection.LOGIN]: 86400000, // 1 day
     [CacheCollection.CONTACT_US]: 86400000, // 1 day
