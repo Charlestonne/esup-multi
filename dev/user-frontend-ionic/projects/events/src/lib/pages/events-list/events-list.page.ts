@@ -43,9 +43,9 @@ export class EventsListPage implements OnInit {
   onSegmentChange(event: any) {
     const value = event.detail.value;
     if (value === 'calendar') {
-      this.router.navigate(['/events/calendar']);
+      this.router.navigate(['/events/calendar'], { replaceUrl: true });
     } else if (value === 'feed') {
-      this.router.navigate(['/events/feed']);
+      this.router.navigate(['/events/feed'], { replaceUrl: true });
     }
   }
 }

@@ -82,8 +82,8 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
 
   onSegmentChange(event: any): void {
     const value = event.detail.value;
-    if (value === 'feed') this.router.navigate(['/events/feed']);
-    else if (value === 'calendar') this.router.navigate(['/events/calendar']);
+    if (value === 'feed') this.router.navigate(['/events/feed'], { replaceUrl: true });
+    else if (value === 'calendar') this.router.navigate(['/events/calendar'], { replaceUrl: true });
   }
 
   private buildWeekLabel(startDate: Date): string {

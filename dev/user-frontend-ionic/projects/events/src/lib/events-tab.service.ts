@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventsTabService {
-  private activeTab$: Observable<'feed' | 'calendar'>;
+  private activeTab = new BehaviorSubject<'feed' | 'calendar'>(
+    this.tabFromUrl(this.router.url),
+  );
 
   constructor(private router: Router) {
-    // Listen to route changes and extract the tab from the URL
-    this.activeTab$ = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map((event: any) => {
-        if (event.urlAfterRedirects.includes('calendar')) {
-          return 'calendar';
-        }
-        return 'feed';
-      })
-    );
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.activeTab.next(this.tabFromUrl(event.urlAfterRedirects));
+      });
   }
 
   getActiveTab(): Observable<'feed' | 'calendar'> {
-    return this.activeTab$;
+    return this.activeTab.asObservable();
+  }
+
+  private tabFromUrl(url: string): 'feed' | 'calendar' {
+    return url.includes('calendar') ? 'calendar' : 'feed';
   }
 }
-
