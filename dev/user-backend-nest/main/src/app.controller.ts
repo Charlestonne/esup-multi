@@ -777,8 +777,26 @@ export class AppController {
   }
 
   @Get('/events')
-  getEvents() {
-    return this.eventsClient.send({ cmd: 'events' }, {});
+  getEvents(@Query() queryParams) {
+    const toArray = (value: unknown): string[] | undefined => {
+      if (value === undefined || value === null || value === '') {
+        return undefined;
+      }
+      if (Array.isArray(value)) {
+        return value.map(String);
+      }
+      return String(value).split(',').map((s) => s.trim()).filter(Boolean);
+    };
+
+    const filter = {
+      associations: toArray(queryParams.associations),
+      types: toArray(queryParams.types),
+      period: queryParams.period,
+      from: queryParams.from,
+      to: queryParams.to,
+      sortOrder: queryParams.sortOrder,
+    };
+    return this.eventsClient.send({ cmd: 'events' }, filter);
   }
 
   @Get('/version')
