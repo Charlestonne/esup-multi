@@ -1,3 +1,11 @@
+ion-content {
+  --background: #faf4f5; // to match detail page background
+}
+
+.events-list-container {
+  padding-bottom: 24px;
+}
+
 // Events Footer Styles
 .events-footer {
   ion-toolbar {
