@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'EVENTS.FILTERS.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [formGroup]="form">
+  <ion-list lines="none" *ngIf="availableAssociations.length > 0">
+    <ion-list-header>
+      <ion-label>{{ 'EVENTS.FILTERS.ASSOCIATIONS' | translate }}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let name of availableAssociations; let i = index" formArrayName="associationsForm">
+      <ion-checkbox slot="start" [formControlName]="i"></ion-checkbox>
+      <ion-label>{{ name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="none" *ngIf="availableTypes.length > 0">
+    <ion-list-header>
+      <ion-label>{{ 'EVENTS.FILTERS.TYPES' | translate }}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let name of availableTypes; let i = index" formArrayName="typesForm">
+      <ion-checkbox slot="start" [formControlName]="i"></ion-checkbox>
+      <ion-label>{{ name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>{{ 'EVENTS.FILTERS.DATE_RANGE' | translate }}</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label position="stacked">{{ 'EVENTS.FILTERS.FROM' | translate }}</ion-label>
+      <ion-input type="date" formControlName="from"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">{{ 'EVENTS.FILTERS.TO' | translate }}</ion-label>
+      <ion-input type="date" formControlName="to"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="onReset()">
+        {{ 'EVENTS.FILTERS.RESET' | translate }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" fill="solid" (click)="onApply()">
+        {{ 'EVENTS.FILTERS.APPLY' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
