@@ -1,4 +1,284 @@
-// Events Footer Styles
+// ─── En-tête calendrier ─────────────────────────────────────────
+.cal-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+// ─── Navigation semaine ─────────────────────────────────────────
+.week-nav {
+  display: flex;
+  align-items: center;
+  padding: 4px 0 0;
+
+  &__center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  &__end {
+    display: flex;
+    align-items: center;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+}
+
+.today-btn {
+  --border-radius: 12px;
+  --padding-top: 2px;
+  --padding-bottom: 2px;
+  height: 26px;
+  font-size: 11px;
+}
+
+.view-toggle-btn {
+  --color: #6b7280;
+}
+
+// ─── Barre des jours (vue Jour) ──────────────────────────────────
+.day-strip {
+  display: flex;
+  padding: 4px 0 6px;
+}
+
+.day-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 2px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  &__name {
+    font-size: 10px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  &__number {
+    font-size: 15px;
+    font-weight: 500;
+    color: #374151;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  &--today &__number {
+    background: #e0e7ff;
+    color: #4338ca;
+    font-weight: 700;
+  }
+
+  &--selected &__number {
+    background: #4338ca;
+    color: #fff;
+    font-weight: 700;
+  }
+}
+
+// ─── En-têtes colonnes (vue Semaine) ─────────────────────────────
+.week-col-headers {
+  display: flex;
+  padding: 4px 0 6px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.week-time-spacer {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.week-col-header {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+
+  &__name {
+    font-size: 9px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  &__num {
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  &--today &__num {
+    background: #4338ca;
+    color: #fff;
+    font-weight: 700;
+  }
+}
+
+// ─── Grille horaire — vue Jour ────────────────────────────────────
+.time-grid__inner {
+  position: relative;
+  height: 1440px; // 24h × 60px/h
+}
+
+.hour-row {
+  height: 60px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.hour-label {
+  width: 48px;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: #9ca3af;
+  padding: 2px 6px 0 6px;
+  text-align: right;
+}
+
+.hour-line {
+  flex: 1;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 8px;
+}
+
+// ─── Couche événements — vue Jour ────────────────────────────────
+.events-layer {
+  position: absolute;
+  top: 0;
+  left: 48px;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+// ─── Grille horaire — vue Semaine ────────────────────────────────
+.week-grid {
+  display: flex;
+  position: relative;
+  height: 1440px;
+}
+
+.week-time-col {
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.week-hour-label {
+  height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  font-size: 9px;
+  color: #9ca3af;
+  padding: 2px 4px 0;
+}
+
+.week-day-col {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  border-left: 1px solid #e5e7eb;
+  // Lignes d'heures via background
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 59px,
+    #f3f4f6 59px,
+    #f3f4f6 60px
+  );
+
+  &--today {
+    background-color: rgba(67, 56, 202, 0.03);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 59px,
+      #ddd6fe 59px,
+      #ddd6fe 60px
+    );
+  }
+}
+
+// ─── Blocs événements ────────────────────────────────────────────
+.cal-event {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  min-height: 24px;
+  border-radius: 6px;
+  padding: 3px 6px;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: all;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+
+  &__title {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__time {
+    display: block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// En vue semaine les colonnes sont étroites, on cache les horaires
+.week-cal-event {
+  left: 1px;
+  right: 1px;
+  padding: 2px 3px;
+  border-radius: 4px;
+
+  .cal-event__title {
+    font-size: 9px;
+  }
+
+  .cal-event__time {
+    display: none;
+  }
+}
+
+.no-events {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+  padding: 48px 16px;
+}
+
+// ─── Footer ──────────────────────────────────────────────────────
 .events-footer {
   ion-toolbar {
     --padding-start: 0;
@@ -43,30 +323,17 @@
     background-color: #e8e8e8;
     --color: #333;
 
-    ion-icon {
-      color: #333;
-    }
-
-    ion-label {
-      color: #333;
-    }
+    ion-icon { color: #333; }
+    ion-label { color: #333; }
   }
 
   &:not(.segment-button-checked) {
     background-color: #f0f0f0;
     --color: #999;
 
-    ion-icon {
-      color: #999;
-    }
-
-    ion-label {
-      color: #999;
-    }
+    ion-icon { color: #999; }
+    ion-label { color: #999; }
   }
 
-  &:active {
-    opacity: 0.9;
-  }
+  &:active { opacity: 0.9; }
 }
-
