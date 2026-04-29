@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProjectModuleService, SharedComponentsModule } from '@multi/shared';
@@ -10,6 +11,7 @@ import { EventsCalendarPage } from './pages/events-calendar/events-calendar.page
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { RouterModule } from '@angular/router';
 import { EventDetailPage } from './pages/event-detail/event-detail.page';
+import { EventsFilterModalComponent } from './components/events-filter-modal/events-filter-modal.component';
 
 const initModule = (projectModuleService: ProjectModuleService) =>
   () =>
@@ -24,6 +26,7 @@ const initModule = (projectModuleService: ProjectModuleService) =>
     EventsCalendarPage,
     EventCardComponent,
     EventDetailPage,
+    EventsFilterModalComponent,
   ],
   providers: [
     {
@@ -39,6 +42,7 @@ const initModule = (projectModuleService: ProjectModuleService) =>
     IonicModule,
     EventsRoutingModule,
     TranslateModule,
+    ReactiveFormsModule,
     SharedComponentsModule,
     RouterModule,
   ],
