@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProjectModuleService, SharedComponentsModule } from '@multi/shared';
@@ -34,12 +35,17 @@ const initModule = (projectModuleService: ProjectModuleService) =>
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     IonicModule,
     EventsRoutingModule,
     TranslateModule,
     SharedComponentsModule,
     RouterModule,
   ],
+  exports: [
+    EventCardComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class EventsModule {
   static routerLink = '/events';

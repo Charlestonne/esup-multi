@@ -42,7 +42,7 @@
   &.segment-button-checked {
     background-color: #e8e8e8;
     --color: #333;
-    
+
     ion-icon {
       color: #333;
     }
@@ -55,7 +55,7 @@
   &:not(.segment-button-checked) {
     background-color: #f0f0f0;
     --color: #999;
-    
+
     ion-icon {
       color: #999;
     }
@@ -69,3 +69,4 @@
     opacity: 0.9;
   }
 }
+

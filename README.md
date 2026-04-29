@@ -30,7 +30,7 @@ Côté front-end :
 
 - Ionic
 - Angular
-
+'
 Côté back-end :
 - NodeJS avec Express et NestJS
 - Nats
