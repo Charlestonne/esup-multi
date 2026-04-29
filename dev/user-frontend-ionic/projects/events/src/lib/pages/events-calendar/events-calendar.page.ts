@@ -21,6 +21,7 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
   public selectedDayEvents$: Observable<CalendarEvent[]> | null = null;
   public weekDayEvents$: Observable<CalendarEvent[]>[] = [];
   public viewMode: 'day' | 'week' = 'day';
+  public urlBeforeEvents = '/';
   public readonly dayAbbr = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
   private weekSub: Subscription | null = null;
@@ -34,6 +35,10 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
   ) {
     this.activeTab$ = this.eventsTabService.getActiveTab();
     this.hours = this.calendarService.getDayHours();
+  }
+
+  ionViewWillEnter() {
+    this.urlBeforeEvents = this.eventsTabService.getUrlBeforeEvents();
   }
 
   async ngOnInit() {

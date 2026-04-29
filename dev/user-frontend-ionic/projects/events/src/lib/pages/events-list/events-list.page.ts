@@ -17,6 +17,7 @@ export class EventsListPage implements OnInit {
   public events$: Observable<Event[]> = events$;
   public isLoading = false;
   public activeTab$: Observable<'feed' | 'calendar'>;
+  public urlBeforeEvents = '/';
 
   constructor(
     private eventsService: EventsService,
@@ -25,6 +26,10 @@ export class EventsListPage implements OnInit {
     private eventsTabService: EventsTabService,
   ) {
     this.activeTab$ = this.eventsTabService.getActiveTab();
+  }
+
+  ionViewWillEnter() {
+    this.urlBeforeEvents = this.eventsTabService.getUrlBeforeEvents();
   }
 
   async ngOnInit() {

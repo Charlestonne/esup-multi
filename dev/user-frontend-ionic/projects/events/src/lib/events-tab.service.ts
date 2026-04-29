@@ -7,20 +7,31 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class EventsTabService {
-  private activeTab = new BehaviorSubject<'feed' | 'calendar'>(
+  private readonly activeTab = new BehaviorSubject<'feed' | 'calendar'>(
     this.tabFromUrl(this.router.url),
   );
+  private urlBeforeEvents = '/';
+  private previousUrl = this.router.url;
 
   constructor(private router: Router) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.activeTab.next(this.tabFromUrl(event.urlAfterRedirects));
+        const current: string = event.urlAfterRedirects;
+        if (current.startsWith('/events') && !this.previousUrl.startsWith('/events')) {
+          this.urlBeforeEvents = this.previousUrl;
+        }
+        this.activeTab.next(this.tabFromUrl(current));
+        this.previousUrl = current;
       });
   }
 
   getActiveTab(): Observable<'feed' | 'calendar'> {
     return this.activeTab.asObservable();
+  }
+
+  getUrlBeforeEvents(): string {
+    return this.urlBeforeEvents;
   }
 
   private tabFromUrl(url: string): 'feed' | 'calendar' {
