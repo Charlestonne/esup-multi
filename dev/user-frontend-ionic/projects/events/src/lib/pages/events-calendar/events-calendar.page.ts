@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NetworkService } from '@multi/shared';
@@ -27,7 +27,7 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
   private weekSub: Subscription | null = null;
 
   constructor(
-    private router: Router,
+    private navController: NavController,
     private eventsTabService: EventsTabService,
     private calendarService: CalendarService,
     private eventsService: EventsService,
@@ -78,7 +78,7 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
   }
 
   navigateToEvent(eventId: string): void {
-    this.router.navigate(['/events', eventId]);
+    this.navController.navigateForward(['/events', eventId]);
   }
 
   goToPrevWeek(): void { this.calendarService.goToPreviousWeek(); }
@@ -87,8 +87,8 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
 
   onSegmentChange(event: any): void {
     const value = event.detail.value;
-    if (value === 'feed') this.router.navigate(['/events/feed'], { replaceUrl: true });
-    else if (value === 'calendar') this.router.navigate(['/events/calendar'], { replaceUrl: true });
+    if (value === 'feed') this.navController.navigateRoot('/events/feed', { animated: false });
+    else if (value === 'calendar') this.navController.navigateRoot('/events/calendar', { animated: false });
   }
 
   private buildWeekLabel(startDate: Date): string {

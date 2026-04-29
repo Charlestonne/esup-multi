@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+// On utilise IonicModule pour les transitions si dispo
 import { EventsCalendarPage } from './pages/events-calendar/events-calendar.page';
 import { EventsListPage } from './pages/events-list/events-list.page';
 import { EventDetailPage } from './pages/event-detail/event-detail.page';

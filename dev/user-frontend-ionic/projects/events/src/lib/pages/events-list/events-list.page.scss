@@ -8,82 +8,56 @@ ion-content {
 
 // Events Footer Styles
 .events-footer {
-  ion-toolbar {
-    --padding-start: 0;
-    --padding-end: 0;
-    --min-height: 70px;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-    background: #f8f8f8;
+  &::before {
+    display: none;
   }
+  background: transparent;
+}
+
+.events-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  --padding-bottom: 8px;
+  --padding-top: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
 }
 
 .events-segment {
+  --background: #ffffff;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
   width: 100%;
-  display: flex;
-  --background: transparent;
 }
 
 .events-segment-button {
-  flex: 1;
-  text-align: center;
-  padding: 12px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: none;
-  --indicator-height: 0;
-
+  --indicator-color: var(--ion-color-secondary);
+  --indicator-box-shadow: 0 6px 16px rgba(239, 21, 78, 0.25);
+  --color-checked: #ffffff;
+  --color: #9ca3af;
+  --border-radius: 24px;
+  margin: 0;
+  min-height: 54px;
+  border-radius: 24px;
+  overflow: visible;
+  transition: all 0.3s ease;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  
   ion-icon {
-    font-size: 28px;
-    margin: 0;
+    font-size: 22px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   ion-label {
-    font-size: 12px;
-    margin: 0;
-    font-weight: 500;
-    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
-  &.segment-button-checked {
-    background-color: #e8e8e8;
-    --color: #333;
-    
-    ion-icon {
-      color: #333;
-    }
-
-    ion-label {
-      color: #333;
-    }
+  &.segment-button-checked ion-icon {
+    transform: scale(1.15) translateY(-2px);
   }
-
-  &:not(.segment-button-checked) {
-    background-color: #f0f0f0;
-    --color: #999;
-    
-    ion-icon {
-      color: #999;
-    }
-
-    ion-label {
-      color: #999;
-    }
-  }
-
-  &:active {
-    opacity: 0.9;
-  }
-}
-
-// Original styles
-ion-toolbar {
-  --padding-start: 8px;
-  --padding-end: 8px;
-}
-
-ion-chip {
-  margin: 4px;
 }

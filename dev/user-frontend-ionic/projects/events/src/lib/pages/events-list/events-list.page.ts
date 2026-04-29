@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { NetworkService } from '@multi/shared';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -22,7 +22,7 @@ export class EventsListPage implements OnInit {
   constructor(
     private eventsService: EventsService,
     private networkService: NetworkService,
-    private router: Router,
+    private navController: NavController,
     private eventsTabService: EventsTabService,
   ) {
     this.activeTab$ = this.eventsTabService.getActiveTab();
@@ -48,9 +48,9 @@ export class EventsListPage implements OnInit {
   onSegmentChange(event: any) {
     const value = event.detail.value;
     if (value === 'calendar') {
-      this.router.navigate(['/events/calendar'], { replaceUrl: true });
+      this.navController.navigateRoot('/events/calendar', { animated: false });
     } else if (value === 'feed') {
-      this.router.navigate(['/events/feed'], { replaceUrl: true });
+      this.navController.navigateRoot('/events/feed', { animated: false });
     }
   }
 }

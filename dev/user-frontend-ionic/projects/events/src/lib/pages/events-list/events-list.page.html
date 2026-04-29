@@ -17,17 +17,14 @@
   </ng-container>
 </ion-content>
 
-<!-- Footer with two tabs -->
-<ion-footer class="events-footer">
+<ion-footer class="events-footer" mode="ios">
   <ion-toolbar class="events-toolbar">
-    <ion-segment [value]="activeTab$ | async" (ionChange)="onSegmentChange($event)" class="events-segment">
-      <ion-segment-button value="feed" layout="icon-bottom" class="events-segment-button">
-        <ion-icon name="list-outline" size="large"></ion-icon>
-        <ion-label>{{ 'EVENTS.FEED' | translate }}</ion-label>
+    <ion-segment [value]="activeTab$ | async" (ionChange)="onSegmentChange($event)" class="events-segment" mode="ios">
+      <ion-segment-button value="feed" layout="icon-top" class="events-segment-button">
+        <ion-icon name="list-outline"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="calendar" layout="icon-bottom" class="events-segment-button">
-        <ion-icon name="calendar-outline" size="large"></ion-icon>
-        <ion-label>{{ 'EVENTS.CALENDAR' | translate }}</ion-label>
+      <ion-segment-button value="calendar" layout="icon-top" class="events-segment-button">
+        <ion-icon name="calendar-outline"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
