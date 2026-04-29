@@ -15,12 +15,12 @@ const routes: Routes = [
     component: EventsListPage,
   },
   {
-    path: 'events/:id',
-    component: EventDetailPage,
-  },
-  {
     path: 'events/calendar',
     component: EventsCalendarPage,
+  },
+  {
+    path: 'events/:id',
+    component: EventDetailPage,
   },
 ];
 
