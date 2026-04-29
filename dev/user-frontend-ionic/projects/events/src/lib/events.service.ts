@@ -1,11 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { MultiTenantService } from '@multi/shared';
 import { Event } from './models/event.model';
 import { EventsFilter } from './models/events-filter.model';
 import { setEvents } from './events.repository';
+
+export interface EventsFacets {
+  associations: string[];
+  types: string[];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +27,26 @@ export class EventsService {
     return this.http
       .get<Event[]>(url, { params })
       .pipe(tap((events) => setEvents(events)));
+  }
+
+  public fetchAvailableFacets(): Observable<EventsFacets> {
+    const url = `${this.multiTenantService.getApiEndpoint()}/events`;
+    return this.http.get<Event[]>(url).pipe(
+      map((events) => ({
+        associations: this.uniqueSorted(events.map((e) => e.association)),
+        types: this.uniqueSorted(events.map((e) => e.type)),
+      })),
+    );
+  }
+
+  private uniqueSorted(values: (string | undefined)[]): string[] {
+    const set = new Set<string>();
+    values.forEach((v) => {
+      if (v) {
+        set.add(v);
+      }
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
   }
 
   private buildParams(filter?: EventsFilter): HttpParams {

@@ -2,6 +2,67 @@
 <ion-content>
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 
+  <ng-container *ngIf="filter$ | async as filter">
+    <ion-segment
+      class="events-period-segment"
+      [value]="filter.period"
+      (ionChange)="onPeriodChange($event)"
+    >
+      <ion-segment-button value="upcoming">
+        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.UPCOMING' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="past">
+        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.PAST' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.ALL' | translate }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div class="events-controls-row">
+      <ion-segment
+        class="events-sort-segment"
+        [value]="filter.sortOrder"
+        (ionChange)="onSortChange($event)"
+      >
+        <ion-segment-button value="asc">
+          <ion-icon name="arrow-up-outline"></ion-icon>
+          <ion-label>{{ 'EVENTS.SORT.ASC' | translate }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="desc">
+          <ion-icon name="arrow-down-outline"></ion-icon>
+          <ion-label>{{ 'EVENTS.SORT.DESC' | translate }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-button fill="outline" (click)="openFilterModal()">
+        <ion-icon slot="start" name="filter-outline"></ion-icon>
+        {{ 'EVENTS.FILTERS.OPEN' | translate }}
+      </ion-button>
+    </div>
+
+    <div class="events-active-chips" *ngIf="filter.associations.length > 0 || filter.types.length > 0">
+      <ion-chip
+        *ngFor="let asso of filter.associations"
+        color="primary"
+        outline="true"
+        (click)="removeAssociation(asso)"
+      >
+        <ion-label>{{ asso }}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip
+        *ngFor="let type of filter.types"
+        color="secondary"
+        outline="true"
+        (click)="removeType(type)"
+      >
+        <ion-label>{{ type }}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+    </div>
+  </ng-container>
+
   <ng-container *ngIf="events$ | async as events">
     <div class="events-list-container" *ngIf="events.length > 0; else empty">
       <app-event-card
@@ -15,6 +76,19 @@
       </ion-row>
     </ng-template>
   </ng-container>
+
+  <ion-modal [isOpen]="isFilterOpen" (didDismiss)="closeFilterModal()">
+    <ng-template>
+      <app-events-filter-modal
+        [availableAssociations]="availableAssociations"
+        [availableTypes]="availableTypes"
+        [currentFilter]="(filter$ | async) || defaultFilter"
+        (apply)="onFilterApply($event)"
+        (reset)="onFilterReset()"
+        (dismiss)="closeFilterModal()"
+      ></app-events-filter-modal>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <ion-footer class="events-footer" mode="ios">

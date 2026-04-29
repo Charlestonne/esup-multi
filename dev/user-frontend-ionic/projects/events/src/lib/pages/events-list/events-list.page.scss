@@ -61,3 +61,24 @@ ion-content {
     transform: scale(1.15) translateY(-2px);
   }
 }
+
+.events-period-segment {
+  margin: 8px;
+}
+
+.events-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+
+  .events-sort-segment {
+    flex: 1;
+  }
+}
+
+.events-active-chips {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 8px 8px;
+}

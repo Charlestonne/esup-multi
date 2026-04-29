@@ -1,10 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { NetworkService } from '@multi/shared';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime, finalize, switchMap, take } from 'rxjs/operators';
 import { Event } from '../../models/event.model';
+import {
+  defaultEventsFilter,
+  EventsFilter,
+  EventsPeriodFilter,
+  EventsSortOrder,
+} from '../../models/events-filter.model';
 import { events$ } from '../../events.repository';
+import {
+  eventsFilter$,
+  getEventsFilterSnapshot,
+  resetEventsFilter,
+  setEventsFilter,
+} from '../../events-filter.repository';
 import { EventsService } from '../../events.service';
 import { EventsTabService } from '../../events-tab.service';
 
@@ -13,9 +25,16 @@ import { EventsTabService } from '../../events-tab.service';
   templateUrl: './events-list.page.html',
   styleUrls: ['./events-list.page.scss'],
 })
-export class EventsListPage implements OnInit {
+export class EventsListPage implements OnInit, OnDestroy {
   public events$: Observable<Event[]> = events$;
+  public filter$: Observable<EventsFilter> = eventsFilter$;
+  public defaultFilter: EventsFilter = defaultEventsFilter;
+  public availableAssociations: string[] = [];
+  public availableTypes: string[] = [];
   public isLoading = false;
+  public isFilterOpen = false;
+
+  private subscriptions: Subscription[] = [];
   public activeTab$: Observable<'feed' | 'calendar'>;
   public urlBeforeEvents = '/';
 
@@ -32,17 +51,71 @@ export class EventsListPage implements OnInit {
     this.urlBeforeEvents = this.eventsTabService.getUrlBeforeEvents();
   }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     if (!(await this.networkService.getConnectionStatus()).connected) {
       return;
     }
-    this.isLoading = true;
-    this.eventsService
-      .loadAndStoreEvents()
-      .pipe(take(1))
-      .subscribe(() => {
-        this.isLoading = false;
-      });
+
+    this.subscriptions.push(
+      this.eventsService.fetchAvailableFacets().pipe(take(1)).subscribe((facets) => {
+        this.availableAssociations = facets.associations;
+        this.availableTypes = facets.types;
+      }),
+    );
+
+    this.subscriptions.push(
+      this.filter$
+        .pipe(
+          debounceTime(200),
+          switchMap((filter) => {
+            this.isLoading = true;
+            return this.eventsService
+              .loadAndStoreEvents(filter)
+              .pipe(finalize(() => (this.isLoading = false)));
+          }),
+        )
+        .subscribe(),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  onPeriodChange(event: CustomEvent): void {
+    setEventsFilter({ period: event.detail.value as EventsPeriodFilter });
+  }
+
+  onSortChange(event: CustomEvent): void {
+    setEventsFilter({ sortOrder: event.detail.value as EventsSortOrder });
+  }
+
+  removeAssociation(name: string): void {
+    const current = getEventsFilterSnapshot();
+    setEventsFilter({ associations: current.associations.filter((a) => a !== name) });
+  }
+
+  removeType(name: string): void {
+    const current = getEventsFilterSnapshot();
+    setEventsFilter({ types: current.types.filter((t) => t !== name) });
+  }
+
+  openFilterModal(): void {
+    this.isFilterOpen = true;
+  }
+
+  closeFilterModal(): void {
+    this.isFilterOpen = false;
+  }
+
+  onFilterApply(filter: EventsFilter): void {
+    setEventsFilter(filter);
+    this.closeFilterModal();
+  }
+
+  onFilterReset(): void {
+    resetEventsFilter();
+    this.closeFilterModal();
   }
 
   onSegmentChange(event: any) {
