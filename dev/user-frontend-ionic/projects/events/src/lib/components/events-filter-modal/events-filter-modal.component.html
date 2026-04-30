@@ -9,40 +9,70 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [formGroup]="form">
-  <ion-list lines="none" *ngIf="availableAssociations.length > 0">
-    <ion-list-header>
-      <ion-label>{{ 'EVENTS.FILTERS.ASSOCIATIONS' | translate }}</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let name of availableAssociations; let i = index" formArrayName="associationsForm">
-      <ion-checkbox slot="start" [formControlName]="i"></ion-checkbox>
-      <ion-label>{{ name }}</ion-label>
-    </ion-item>
-  </ion-list>
+<ion-content [formGroup]="form" class="events-filter-content">
+  <div class="filters-container">
+    <section class="filter-section">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.PERIOD.TITLE' | translate }}</h2>
+      <div class="filter-options filter-period-options">
+        <button
+          *ngFor="let option of periodOptions"
+          type="button"
+          class="filter-option-button"
+          [class.filter-option-button--selected]="isPeriodSelected(option.value)"
+          [attr.aria-pressed]="isPeriodSelected(option.value)"
+          (click)="setPeriod(option.value)"
+        >
+          {{ option.labelKey | translate }}
+        </button>
+      </div>
+    </section>
 
-  <ion-list lines="none" *ngIf="availableTypes.length > 0">
-    <ion-list-header>
-      <ion-label>{{ 'EVENTS.FILTERS.TYPES' | translate }}</ion-label>
-    </ion-list-header>
-    <ion-item *ngFor="let name of availableTypes; let i = index" formArrayName="typesForm">
-      <ion-checkbox slot="start" [formControlName]="i"></ion-checkbox>
-      <ion-label>{{ name }}</ion-label>
-    </ion-item>
-  </ion-list>
+    <section class="filter-section" *ngIf="availableAssociations.length > 0">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.ASSOCIATIONS' | translate }}</h2>
+      <div class="filter-options">
+        <button
+          *ngFor="let name of availableAssociations; let i = index"
+          type="button"
+          class="filter-option-button"
+          [class.filter-option-button--selected]="isAssociationSelected(i)"
+          [attr.aria-pressed]="isAssociationSelected(i)"
+          (click)="toggleAssociation(i)"
+        >
+          {{ name }}
+        </button>
+      </div>
+    </section>
 
-  <ion-list lines="none">
-    <ion-list-header>
-      <ion-label>{{ 'EVENTS.FILTERS.DATE_RANGE' | translate }}</ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-label position="stacked">{{ 'EVENTS.FILTERS.FROM' | translate }}</ion-label>
-      <ion-input type="date" formControlName="from"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">{{ 'EVENTS.FILTERS.TO' | translate }}</ion-label>
-      <ion-input type="date" formControlName="to"></ion-input>
-    </ion-item>
-  </ion-list>
+    <section class="filter-section" *ngIf="availableTypes.length > 0">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.TYPES' | translate }}</h2>
+      <div class="filter-options">
+        <button
+          *ngFor="let name of availableTypes; let i = index"
+          type="button"
+          class="filter-option-button"
+          [class.filter-option-button--selected]="isTypeSelected(i)"
+          [attr.aria-pressed]="isTypeSelected(i)"
+          (click)="toggleType(i)"
+        >
+          {{ name }}
+        </button>
+      </div>
+    </section>
+
+    <section class="filter-section">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.DATE_RANGE' | translate }}</h2>
+      <div class="filter-date-grid">
+        <ion-item lines="none" class="filter-date-field">
+          <ion-label position="stacked">{{ 'EVENTS.FILTERS.FROM' | translate }}</ion-label>
+          <ion-input type="date" formControlName="from"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="filter-date-field">
+          <ion-label position="stacked">{{ 'EVENTS.FILTERS.TO' | translate }}</ion-label>
+          <ion-input type="date" formControlName="to"></ion-input>
+        </ion-item>
+      </div>
+    </section>
+  </div>
 </ion-content>
 
 <ion-footer>

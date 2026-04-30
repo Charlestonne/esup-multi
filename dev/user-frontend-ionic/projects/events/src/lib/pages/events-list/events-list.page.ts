@@ -7,7 +7,6 @@ import { Event } from '../../models/event.model';
 import {
   defaultEventsFilter,
   EventsFilter,
-  EventsPeriodFilter,
   EventsSortOrder,
 } from '../../models/events-filter.model';
 import { events$ } from '../../events.repository';
@@ -33,6 +32,7 @@ export class EventsListPage implements OnInit, OnDestroy {
   public availableTypes: string[] = [];
   public isLoading = false;
   public isFilterOpen = false;
+  public isSortOpen = false;
 
   private subscriptions: Subscription[] = [];
   public activeTab$: Observable<'feed' | 'calendar'>;
@@ -82,14 +82,6 @@ export class EventsListPage implements OnInit, OnDestroy {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
-  onPeriodChange(event: CustomEvent): void {
-    setEventsFilter({ period: event.detail.value as EventsPeriodFilter });
-  }
-
-  onSortChange(event: CustomEvent): void {
-    setEventsFilter({ sortOrder: event.detail.value as EventsSortOrder });
-  }
-
   removeAssociation(name: string): void {
     const current = getEventsFilterSnapshot();
     setEventsFilter({ associations: current.associations.filter((a) => a !== name) });
@@ -98,6 +90,14 @@ export class EventsListPage implements OnInit, OnDestroy {
   removeType(name: string): void {
     const current = getEventsFilterSnapshot();
     setEventsFilter({ types: current.types.filter((t) => t !== name) });
+  }
+
+  resetPeriod(): void {
+    setEventsFilter({ period: 'all' });
+  }
+
+  resetDateRange(): void {
+    setEventsFilter({ from: undefined, to: undefined });
   }
 
   openFilterModal(): void {
@@ -125,5 +125,18 @@ export class EventsListPage implements OnInit, OnDestroy {
     } else if (value === 'feed') {
       this.navController.navigateRoot('/events/feed', { animated: false });
     }
+  }
+
+  openSortModal(): void {
+    this.isSortOpen = true;
+  }
+
+  closeSortModal(): void {
+    this.isSortOpen = false;
+  }
+
+  onSortApply(sortOrder: EventsSortOrder): void {
+    setEventsFilter({ sortOrder });
+    this.closeSortModal();
   }
 }

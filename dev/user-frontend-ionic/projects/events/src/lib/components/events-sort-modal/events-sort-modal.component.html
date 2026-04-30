@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'EVENTS.SORT.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-radio-group [value]="currentSort" (ionChange)="onSelect($event.detail.value)">
+    <ion-list lines="full">
+      <ion-item button (click)="onSelect('asc')">
+        <ion-icon slot="start" name="arrow-up-outline"></ion-icon>
+        <ion-label>{{ 'EVENTS.SORT.ASC' | translate }}</ion-label>
+        <ion-radio slot="end" value="asc"></ion-radio>
+      </ion-item>
+      <ion-item button (click)="onSelect('desc')">
+        <ion-icon slot="start" name="arrow-down-outline"></ion-icon>
+        <ion-label>{{ 'EVENTS.SORT.DESC' | translate }}</ion-label>
+        <ion-radio slot="end" value="desc"></ion-radio>
+      </ion-item>
+    </ion-list>
+  </ion-radio-group>
+</ion-content>

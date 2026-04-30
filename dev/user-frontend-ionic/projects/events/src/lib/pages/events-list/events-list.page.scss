@@ -62,23 +62,36 @@ ion-content {
   }
 }
 
-.events-period-segment {
-  margin: 8px;
-}
-
 .events-controls-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 8px;
-
-  .events-sort-segment {
-    flex: 1;
-  }
+  padding: 8px;
+  justify-content: flex-end;
 }
 
 .events-active-chips {
   display: flex;
   flex-wrap: wrap;
   padding: 4px 8px 8px;
+}
+
+ion-modal.events-sheet-modal {
+  --border-radius: 18px 18px 0 0;
+  --box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.2);
+  --max-width: 840px;
+  --width: calc(100% - 32px);
+}
+
+ion-modal.events-sheet-modal::part(handle) {
+  background: var(--ion-color-medium);
+  height: 5px;
+  width: 48px;
+}
+
+@media (max-width: 767px) {
+  ion-modal.events-sheet-modal {
+    --max-width: 100%;
+    --width: 100%;
+  }
 }

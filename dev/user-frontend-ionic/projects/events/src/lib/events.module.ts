@@ -12,6 +12,7 @@ import { EventCardComponent } from './components/event-card/event-card.component
 import { RouterModule } from '@angular/router';
 import { EventDetailPage } from './pages/event-detail/event-detail.page';
 import { EventsFilterModalComponent } from './components/events-filter-modal/events-filter-modal.component';
+import { EventsSortModalComponent } from './components/events-sort-modal/events-sort-modal.component';
 
 const initModule = (projectModuleService: ProjectModuleService) =>
   () =>
@@ -27,6 +28,7 @@ const initModule = (projectModuleService: ProjectModuleService) =>
     EventCardComponent,
     EventDetailPage,
     EventsFilterModalComponent,
+    EventsSortModalComponent,
   ],
   providers: [
     {

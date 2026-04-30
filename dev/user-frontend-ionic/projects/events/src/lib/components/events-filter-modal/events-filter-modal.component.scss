@@ -1,9 +1,129 @@
-ion-list-header {
-  margin-top: 0.5rem;
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+ion-toolbar {
+  --padding-start: 1rem;
+  --padding-end: 0.5rem;
+}
+
+.events-filter-content {
+  --padding-bottom: 1rem;
+  --padding-end: 1.25rem;
+  --padding-start: 1.25rem;
+  --padding-top: 1rem;
+}
+
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-section-title {
+  color: var(--ion-text-color);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-period-options .filter-option-button {
+  flex: 1 1 0;
+  min-width: 6.5rem;
+}
+
+.filter-option-button {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--ion-color-medium);
+  border-radius: 999px;
+  color: var(--ion-text-color);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1;
+  max-width: 100%;
+  min-width: 6.5rem;
+  overflow: hidden;
+  padding: 0 1rem;
+  text-overflow: ellipsis;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  white-space: nowrap;
+}
+
+.filter-option-button--selected {
+  background: var(--ion-color-dark);
+  border-color: var(--ion-color-dark);
+  color: var(--ion-color-dark-contrast);
+}
+
+.filter-date-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.filter-date-field {
+  --background: transparent;
+  --border-radius: 0.875rem;
+  --inner-padding-end: 0;
+  --padding-end: 0.875rem;
+  --padding-start: 0.875rem;
+
+  border: 1px solid var(--ion-color-step-300);
+  border-radius: 0.875rem;
+}
+
+.filter-date-field ion-label {
+  color: var(--ion-color-medium);
   font-weight: 600;
 }
 
 ion-footer ion-toolbar {
   --background: var(--ion-color-light);
   padding: 0 0.5rem;
+}
+
+ion-footer ion-button[fill='solid'] {
+  --background: var(--ion-color-dark);
+  --background-activated: var(--ion-color-step-850);
+  --background-focused: var(--ion-color-step-850);
+  --background-hover: var(--ion-color-step-850);
+  --color: var(--ion-color-dark-contrast);
+}
+
+@media (max-width: 480px) {
+  .events-filter-content {
+    --padding-end: 1rem;
+    --padding-start: 1rem;
+  }
+
+  .filter-option-button {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: 0;
+  }
+
+  .filter-date-grid {
+    grid-template-columns: 1fr;
+  }
 }

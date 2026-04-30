@@ -3,37 +3,11 @@
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 
   <ng-container *ngIf="filter$ | async as filter">
-    <ion-segment
-      class="events-period-segment"
-      [value]="filter.period"
-      (ionChange)="onPeriodChange($event)"
-    >
-      <ion-segment-button value="upcoming">
-        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.UPCOMING' | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="past">
-        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.PAST' | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="all">
-        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.ALL' | translate }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-
     <div class="events-controls-row">
-      <ion-segment
-        class="events-sort-segment"
-        [value]="filter.sortOrder"
-        (ionChange)="onSortChange($event)"
-      >
-        <ion-segment-button value="asc">
-          <ion-icon name="arrow-up-outline"></ion-icon>
-          <ion-label>{{ 'EVENTS.SORT.ASC' | translate }}</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="desc">
-          <ion-icon name="arrow-down-outline"></ion-icon>
-          <ion-label>{{ 'EVENTS.SORT.DESC' | translate }}</ion-label>
-        </ion-segment-button>
-      </ion-segment>
+      <ion-button fill="outline" (click)="openSortModal()">
+        <ion-icon slot="start" [name]="filter.sortOrder === 'asc' ? 'arrow-up-outline' : 'arrow-down-outline'"></ion-icon>
+        {{ 'EVENTS.SORT.OPEN' | translate }}
+      </ion-button>
 
       <ion-button fill="outline" (click)="openFilterModal()">
         <ion-icon slot="start" name="filter-outline"></ion-icon>
@@ -41,7 +15,19 @@
       </ion-button>
     </div>
 
-    <div class="events-active-chips" *ngIf="filter.associations.length > 0 || filter.types.length > 0">
+    <div
+      class="events-active-chips"
+      *ngIf="filter.period !== 'all' || filter.associations.length > 0 || filter.types.length > 0 || filter.from || filter.to"
+    >
+      <ion-chip
+        *ngIf="filter.period !== 'all'"
+        color="tertiary"
+        outline="true"
+        (click)="resetPeriod()"
+      >
+        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.' + (filter.period | uppercase) | translate }}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
       <ion-chip
         *ngFor="let asso of filter.associations"
         color="primary"
@@ -58,6 +44,15 @@
         (click)="removeType(type)"
       >
         <ion-label>{{ type }}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+      <ion-chip
+        *ngIf="filter.from || filter.to"
+        color="medium"
+        outline="true"
+        (click)="resetDateRange()"
+      >
+        <ion-label>{{ filter.from || '…' }} → {{ filter.to || '…' }}</ion-label>
         <ion-icon name="close-circle"></ion-icon>
       </ion-chip>
     </div>
@@ -77,7 +72,14 @@
     </ng-template>
   </ng-container>
 
-  <ion-modal [isOpen]="isFilterOpen" (didDismiss)="closeFilterModal()">
+  <ion-modal
+    class="events-sheet-modal"
+    [isOpen]="isFilterOpen"
+    (didDismiss)="closeFilterModal()"
+    [breakpoints]="[0, 0.8, 1]"
+    [initialBreakpoint]="0.8"
+    [handle]="true"
+  >
     <ng-template>
       <app-events-filter-modal
         [availableAssociations]="availableAssociations"
@@ -87,6 +89,23 @@
         (reset)="onFilterReset()"
         (dismiss)="closeFilterModal()"
       ></app-events-filter-modal>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal
+    class="events-sheet-modal"
+    [isOpen]="isSortOpen"
+    (didDismiss)="closeSortModal()"
+    [breakpoints]="[0, 0.4]"
+    [initialBreakpoint]="0.4"
+    [handle]="true"
+  >
+    <ng-template>
+      <app-events-sort-modal
+        [currentSort]="((filter$ | async)?.sortOrder) || 'asc'"
+        (apply)="onSortApply($event)"
+        (dismiss)="closeSortModal()"
+      ></app-events-sort-modal>
     </ng-template>
   </ion-modal>
 </ion-content>

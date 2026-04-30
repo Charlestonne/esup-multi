@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { defaultEventsFilter, EventsFilter } from '../../models/events-filter.model';
+import { defaultEventsFilter, EventsFilter, EventsPeriodFilter } from '../../models/events-filter.model';
 
 @Component({
   selector: 'app-events-filter-modal',
@@ -17,9 +17,15 @@ export class EventsFilterModalComponent implements OnChanges {
   @Output() dismiss = new EventEmitter<void>();
 
   form: FormGroup;
+  periodOptions: { value: EventsPeriodFilter; labelKey: string }[] = [
+    { value: 'upcoming', labelKey: 'EVENTS.FILTERS.PERIOD.UPCOMING' },
+    { value: 'past', labelKey: 'EVENTS.FILTERS.PERIOD.PAST' },
+    { value: 'all', labelKey: 'EVENTS.FILTERS.PERIOD.ALL' },
+  ];
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
+      period: this.fb.control<EventsPeriodFilter>('upcoming'),
       associationsForm: this.fb.array([]),
       typesForm: this.fb.array([]),
       from: this.fb.control<string | null>(null),
@@ -49,6 +55,7 @@ export class EventsFilterModalComponent implements OnChanges {
 
     this.apply.emit({
       ...this.currentFilter,
+      period: (this.form.get('period')?.value as EventsPeriodFilter) ?? this.currentFilter.period,
       associations,
       types,
       from: this.form.get('from')?.value || undefined,
@@ -64,6 +71,30 @@ export class EventsFilterModalComponent implements OnChanges {
     this.dismiss.emit();
   }
 
+  setPeriod(period: EventsPeriodFilter): void {
+    this.form.get('period')?.setValue(period);
+  }
+
+  isPeriodSelected(period: EventsPeriodFilter): boolean {
+    return this.form.get('period')?.value === period;
+  }
+
+  toggleAssociation(index: number): void {
+    this.toggleFormArrayControl(this.associationsForm, index);
+  }
+
+  isAssociationSelected(index: number): boolean {
+    return this.isFormArrayControlSelected(this.associationsForm, index);
+  }
+
+  toggleType(index: number): void {
+    this.toggleFormArrayControl(this.typesForm, index);
+  }
+
+  isTypeSelected(index: number): boolean {
+    return this.isFormArrayControlSelected(this.typesForm, index);
+  }
+
   private rebuildForm(): void {
     this.associationsForm.clear();
     this.availableAssociations.forEach((name) => {
@@ -77,7 +108,20 @@ export class EventsFilterModalComponent implements OnChanges {
       this.typesForm.push(new FormControl(checked));
     });
 
+    this.form.get('period')?.setValue(this.currentFilter.period ?? 'upcoming', { emitEvent: false });
     this.form.get('from')?.setValue(this.currentFilter.from ?? null, { emitEvent: false });
     this.form.get('to')?.setValue(this.currentFilter.to ?? null, { emitEvent: false });
+  }
+
+  private toggleFormArrayControl(formArray: FormArray, index: number): void {
+    const control = formArray.at(index);
+    if (!control) {
+      return;
+    }
+    control.setValue(control.value !== true);
+  }
+
+  private isFormArrayControlSelected(formArray: FormArray, index: number): boolean {
+    return formArray.at(index)?.value === true;
   }
 }
