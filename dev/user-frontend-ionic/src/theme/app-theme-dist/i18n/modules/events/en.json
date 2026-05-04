@@ -1,36 +1,45 @@
 {
-  "EVENTS": {
-    "FEED": "Feed",
-    "CALENDAR": "Calendar",
-    "CALENDAR_PLACEHOLDER": "The events calendar will be available soon.",
-    "NO_DATA": "No events found",
-    "FILTERS": {
-      "TITLE": "Filters",
-      "OPEN": "Filters",
-      "ASSOCIATIONS": "Associations",
-      "TYPES": "Categories",
-      "NO_CATEGORIES": "No categories available",
-      "DATE_RANGE": "Date range",
-      "FROM": "From",
-      "TO": "To",
-      "APPLY": "Apply",
-      "RESET": "Reset",
-      "CLEAR_ALL": "Clear all",
-      "DATE_FROM_ONLY": "Since {{from}}",
-      "DATE_TO_ONLY": "Until {{to}}",
-      "DATE_RANGE_VALUE": "{{from}} → {{to}}",
-      "PERIOD": {
-        "TITLE": "Period",
-        "ALL": "All",
-        "UPCOMING": "Upcoming",
-        "PAST": "Past"
-      }
-    },
-    "SORT": {
-      "TITLE": "Sort by",
-      "OPEN": "Sort",
-      "ASC": "Date (ascending)",
-      "DESC": "Date (descending)"
+  "TITLE": "Events",
+  "FEED": "Feed",
+  "CALENDAR": "Calendar",
+  "CALENDAR_PLACEHOLDER": "The events calendar will be available soon.",
+  "NO_DATA": "No events found",
+  "FILTERS": {
+    "TITLE": "Filters",
+    "OPEN": "Filters",
+    "ASSOCIATIONS": "Associations",
+    "TYPES": "Categories",
+    "NO_CATEGORIES": "No categories available",
+    "DATE_RANGE": "Date range",
+    "FROM": "From",
+    "TO": "To",
+    "APPLY": "Apply",
+    "RESET": "Reset",
+    "CLEAR_ALL": "Clear all",
+    "DATE_FROM_ONLY": "Since {{from}}",
+    "DATE_TO_ONLY": "Until {{to}}",
+    "DATE_RANGE_VALUE": "{{from}} → {{to}}",
+    "PERIOD": {
+      "TITLE": "Period",
+      "ALL": "All",
+      "UPCOMING": "Upcoming",
+      "PAST": "Past"
     }
+  },
+  "SORT": {
+    "TITLE": "Sort by",
+    "OPEN": "Sort",
+    "ASC": "Date (ascending)",
+    "DESC": "Date (descending)"
+  },
+  "DETAIL": {
+    "ORGANIZER": "Organizer",
+    "DATES": "Dates",
+    "START_DATE": "Start",
+    "END_DATE": "End",
+    "LOCATION": "Location",
+    "DESCRIPTION": "Description",
+    "MAP": "Location map",
+    "CONTACT": "Contact organizer"
   }
 }

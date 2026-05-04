@@ -24,68 +24,58 @@ $radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
   }
 
-  &__image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-  }
-
-  &__image {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 0.4s ease;
-  }
-
-  &__gradient {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
-    pointer-events: none;
-  }
-
-  &:hover &__image {
-    transform: scale(1.05);
-  }
-
   &__body {
     padding: 1.25rem;
-    position: relative;
-    z-index: 1;
     background: $bg-card;
   }
 
-  &__meta {
+  &__header {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 0.6rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.875rem;
+  }
+
+  &__header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 0;
   }
 
   &__type {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     padding: 0.18rem 0.6rem;
     border-radius: 20px;
     border: 1px solid transparent;
     line-height: 1.6;
   }
 
-  &__dot {
-    color: #e5e7eb;
+  &__association {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $text-body;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
 
-  &__association {
-    color: $text-muted;
+  &__logo {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    flex-shrink: 0;
+    padding: 4px;
   }
 
   &__title {
@@ -149,4 +139,3 @@ $radius: 20px;
     }
   }
 }
-

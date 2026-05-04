@@ -15,7 +15,8 @@
         >{{ event.type }}</span>
         <h1 class="detail-head__title">{{ event.title }}</h1>
         <div class="detail-head__organizer" *ngIf="event.creator">
-          <ion-icon name="person-circle-outline"></ion-icon>
+          <img *ngIf="event.imageUrl" class="detail-head__logo" [src]="event.imageUrl" [alt]="event.creator" />
+          <ion-icon *ngIf="!event.imageUrl" name="person-circle-outline"></ion-icon>
           <span class="detail-head__creator">{{ event.creator }}</span>
         </div>
       </div>
