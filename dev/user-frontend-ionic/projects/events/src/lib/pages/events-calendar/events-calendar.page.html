@@ -18,9 +18,12 @@
       <ion-button fill="clear" size="small" (click)="goToNextWeek()">
         <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" size="small" (click)="toggleViewMode()" class="view-toggle-btn">
-        <ion-icon slot="icon-only" [name]="viewMode === 'day' ? 'grid-outline' : 'list-outline'"></ion-icon>
-      </ion-button>
+
+      <!-- Bouton vue — ouvre le menu déroulant -->
+      <button id="view-mode-btn" class="view-mode-btn">
+        <span class="view-mode-btn__label">{{ viewModeLabel }}</span>
+        <ion-icon name="chevron-down-outline" class="view-mode-btn__arrow"></ion-icon>
+      </button>
     </div>
   </div>
 
@@ -38,12 +41,12 @@
     </button>
   </div>
 
-  <!-- En-têtes des colonnes — vue Semaine uniquement -->
-  <div class="week-col-headers" *ngIf="viewMode === 'week'">
+  <!-- En-têtes des colonnes — vue Semaine et 5 jours -->
+  <div class="week-col-headers" *ngIf="viewMode === 'week' || viewMode === '5days'">
     <div class="week-time-spacer"></div>
     <div
       class="week-col-header"
-      *ngFor="let day of currentWeekDays; let i = index"
+      *ngFor="let day of displayedDays; let i = index"
       [class.week-col-header--today]="day.isToday"
     >
       <span class="week-col-header__name">{{ dayAbbr[i] }}</span>
@@ -52,6 +55,25 @@
   </div>
 
 </div>
+
+<!-- ─── Menu déroulant vue ────────────────────────────────────── -->
+<ion-popover #viewPopover trigger="view-mode-btn" trigger-action="click" [showBackdrop]="false" size="auto">
+  <ng-template>
+    <ion-list lines="none" class="view-mode-list">
+      <ion-item
+        button
+        class="view-mode-item"
+        *ngFor="let opt of viewModeOptions"
+        [class.view-mode-item--active]="viewMode === opt.value"
+        (click)="setViewMode(opt.value)"
+      >
+        <ion-icon [name]="opt.icon" slot="start"></ion-icon>
+        {{ opt.label }}
+        <ion-icon *ngIf="viewMode === opt.value" name="checkmark-outline" slot="end" class="check-icon"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-popover>
 
 <!-- ─── Grille horaire (scrollable) ──────────────────────────── -->
 <ion-content>
@@ -70,6 +92,9 @@
             *ngFor="let ev of dayEvents"
             [style.top]="getEventStyle(ev).top"
             [style.height]="getEventStyle(ev).height"
+            [style.left]="ev.left"
+            [style.width]="ev.width"
+            [style.z-index]="ev.zIndex"
             [style.background-color]="ev.color"
             (click)="navigateToEvent(ev.id)"
           >
@@ -86,8 +111,8 @@
     </div>
   </ng-container>
 
-  <!-- Vue Semaine -->
-  <ng-container *ngIf="viewMode === 'week'">
+  <!-- Vue Semaine / 5 jours -->
+  <ng-container *ngIf="viewMode === 'week' || viewMode === '5days'">
     <div class="week-grid">
 
       <!-- Colonne des heures -->
@@ -95,18 +120,21 @@
         <div class="week-hour-label" *ngFor="let h of hours">{{ h.timeString }}</div>
       </div>
 
-      <!-- 7 colonnes de jours -->
+      <!-- Colonnes de jours (7 ou 5) -->
       <div
         class="week-day-col"
-        *ngFor="let day of currentWeekDays; let i = index"
+        *ngFor="let day of displayedDays; let i = index"
         [class.week-day-col--today]="day.isToday"
       >
-        <ng-container *ngIf="weekDayEvents$[i] | async as events">
+        <ng-container *ngIf="displayedDayEvents$[i] | async as events">
           <div
             class="cal-event week-cal-event"
             *ngFor="let ev of events"
             [style.top]="getEventStyle(ev).top"
             [style.height]="getEventStyle(ev).height"
+            [style.left]="ev.left"
+            [style.width]="ev.width"
+            [style.z-index]="ev.zIndex"
             [style.background-color]="ev.color"
             (click)="navigateToEvent(ev.id)"
           >

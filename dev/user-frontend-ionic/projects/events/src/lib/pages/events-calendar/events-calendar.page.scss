@@ -38,8 +38,57 @@
   font-size: 11px;
 }
 
-.view-toggle-btn {
-  --color: #6b7280;
+// ─── Bouton vue déroulant ────────────────────────────────────────
+.view-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px 4px 12px;
+  margin: 0 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: #f9fafb;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:active { background: #f3f4f6; border-color: #d1d5db; }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
+  }
+
+  &__arrow {
+    font-size: 12px;
+    color: #9ca3af;
+  }
+}
+
+// ─── Popover menu vue ────────────────────────────────────────────
+.view-mode-list {
+  padding: 4px 0;
+  min-width: 140px;
+}
+
+.view-mode-item {
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --min-height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+
+  ion-icon[slot="start"] { font-size: 16px; color: #6b7280; margin-right: 10px; }
+
+  &--active {
+    --background: rgba(67, 56, 202, 0.06);
+    font-weight: 700;
+    ion-icon[slot="start"] { color: #4338ca; }
+  }
+
+  .check-icon { font-size: 16px; color: #4338ca; }
 }
 
 // ─── Barre des jours (vue Jour) ──────────────────────────────────
@@ -228,8 +277,6 @@
 // ─── Blocs événements ────────────────────────────────────────────
 .cal-event {
   position: absolute;
-  left: 4px;
-  right: 4px;
   min-height: 24px;
   border-radius: 6px;
   padding: 3px 6px;
@@ -243,9 +290,9 @@
     font-size: 12px;
     font-weight: 600;
     color: #fff;
-    white-space: nowrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   &__time {
@@ -257,8 +304,6 @@
 
 // En vue semaine les colonnes sont étroites, on cache les horaires
 .week-cal-event {
-  left: 1px;
-  right: 1px;
   padding: 2px 3px;
   border-radius: 4px;
 
