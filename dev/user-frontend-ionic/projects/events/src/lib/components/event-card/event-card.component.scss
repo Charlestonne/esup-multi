@@ -74,7 +74,10 @@ $radius: 20px;
   }
 
   &__type {
-    color: $red;
+    padding: 0.18rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    line-height: 1.6;
   }
 
   &__dot {

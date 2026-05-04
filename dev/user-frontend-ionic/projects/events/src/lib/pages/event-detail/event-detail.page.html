@@ -8,7 +8,11 @@
     <div class="detail-head">
       <div class="detail-head__accent"></div>
       <div class="detail-head__body">
-        <span class="detail-head__type" *ngIf="event.type">{{ event.type }}</span>
+        <span
+          class="detail-head__type"
+          *ngIf="event.type"
+          [ngStyle]="getCategoryStyle(event.type)"
+        >{{ event.type }}</span>
         <h1 class="detail-head__title">{{ event.title }}</h1>
         <div class="detail-head__organizer" *ngIf="event.creator">
           <ion-icon name="person-circle-outline"></ion-icon>

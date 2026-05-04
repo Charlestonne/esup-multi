@@ -16,11 +16,15 @@ interface DirectusEvent {
   startDate: string;
   endDate?: string;
   categories?: string[];
+  rawData?: { categories?: string[] };
   geo?: { type: string; coordinates: [number, number] };
   Image?: string;
 }
 
 function mapDirectusEvent(e: DirectusEvent): EventDto {
+  const categories = Array.isArray(e.categories) && e.categories.length > 0
+    ? e.categories
+    : e.rawData?.categories;
   return {
     id: String(e.id),
     title: e.name,
@@ -29,7 +33,7 @@ function mapDirectusEvent(e: DirectusEvent): EventDto {
     location: e.location || '',
     contactInfo: null,
     association: e.source || null,
-    type: Array.isArray(e.categories) && e.categories.length > 0 ? e.categories[0] : null,
+    type: Array.isArray(categories) && categories.length > 0 ? categories[0] : null,
     startDate: e.startDate,
     endDate: e.endDate || null,
     locationLat: e.geo?.coordinates?.[1] ?? null,

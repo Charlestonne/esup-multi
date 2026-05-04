@@ -25,14 +25,16 @@ $radius: 14px;
   }
 
   &__type {
-    display: block;
+    display: inline-block;
     font-family: $f;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--ion-color-secondary);
-    margin-bottom: 0.45rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    margin-bottom: 0.6rem;
   }
 
   &__title {

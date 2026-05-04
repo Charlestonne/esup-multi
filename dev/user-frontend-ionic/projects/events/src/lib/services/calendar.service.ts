@@ -145,20 +145,24 @@ export class CalendarService {
     };
   }
 
-  /**
-   * Get color based on event type
-   */
-  private getEventColor(eventType: string): string {
+  getEventColor(eventType: string): string {
+    if (!eventType) return '#f97316';
+    const normalized = eventType.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
     const colorMap: { [key: string]: string } = {
-      'Soirée': '#8b5cf6',
-      'Sport': '#10b981',
-      'Conférence': '#3b82f6',
-      'Vente': '#f59e0b',
-      'Hackathon': '#ec4899',
-      'Réunion': '#6366f1'
+      'atelier':              '#22c55e',
+      'spectacle':            '#ef4444',
+      'soiree':               '#8b5cf6',
+      'autre':                '#f97316',
+      'recrutement':          '#6b7280',
+      'sport':                '#3b82f6',
+      'conference':           '#eab308',
+      'concert':              '#ec4899',
+      'exposition':           '#14b8a6',
+      'concours':             '#f59e0b',
+      'repas':                '#a3e635',
+      'distribution/ventes':  '#94a3b8',
     };
-    
-    return colorMap[eventType] || '#6b7280'; // Default gray color
+    return colorMap[normalized] ?? '#f97316';
   }
 
   /**

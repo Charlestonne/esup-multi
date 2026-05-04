@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 import { Event } from '../../models/event.model';
 import { EventsService } from '../../events.service';
 import { selectEventById } from '../../events.repository';
+import { CalendarService } from '../../services/calendar.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -22,7 +23,17 @@ export class EventDetailPage implements OnDestroy {
     private eventsService: EventsService,
     private location: Location,
     private cdr: ChangeDetectorRef,
+    private calendarService: CalendarService,
   ) {}
+
+  getCategoryStyle(type?: string): { [key: string]: string } {
+    const color = this.calendarService.getEventColor(type ?? '');
+    return {
+      color,
+      background: color + '1a',
+      borderColor: color + '4d',
+    };
+  }
 
   async ionViewWillEnter() {
     const id = this.route.snapshot.paramMap.get('id') ?? '';

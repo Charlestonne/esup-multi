@@ -6,8 +6,10 @@
 
   <div class="event-card__body">
     <div class="event-card__meta">
-      <span class="event-card__type" *ngIf="event.type">{{ event.type }}</span>
-      <span class="event-card__dot" *ngIf="event.type && event.association">•</span>
+      <span class="event-card__type" [ngStyle]="getCategoryStyle(event.type)">
+        {{ event.type || 'Catégorie non précisée' }}
+      </span>
+      <span class="event-card__dot" *ngIf="event.association">•</span>
       <span class="event-card__association" *ngIf="event.association">{{ event.association }}</span>
     </div>
 
