@@ -20,7 +20,7 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
   public selectedDay: CalendarDay | null = null;
   public selectedDayEvents$: Observable<CalendarEvent[]> | null = null;
   public weekDayEvents$: Observable<CalendarEvent[]>[] = [];
-  public viewMode: 'day' | 'week' = 'day';
+  public viewMode: 'day' | 'week' = (localStorage.getItem('events-calendar-view') as 'day' | 'week') ?? 'day';
   public urlBeforeEvents = '/';
   public readonly dayAbbr = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
@@ -71,6 +71,7 @@ export class EventsCalendarPage implements OnInit, OnDestroy {
 
   toggleViewMode(): void {
     this.viewMode = this.viewMode === 'day' ? 'week' : 'day';
+    localStorage.setItem('events-calendar-view', this.viewMode);
   }
 
   getEventStyle(event: CalendarEvent): { top: string; height: string } {
