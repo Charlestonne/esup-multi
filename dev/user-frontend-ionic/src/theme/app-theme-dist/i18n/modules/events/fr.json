@@ -1,36 +1,31 @@
 {
-  "EVENTS": {
-    "FEED": "Flux",
-    "CALENDAR": "Calendrier",
-    "CALENDAR_PLACEHOLDER": "Le calendrier des événements sera bientôt disponible.",
     "NO_DATA": "Aucun événement trouvé",
     "FILTERS": {
-      "TITLE": "Filtres",
-      "OPEN": "Filtres",
-      "ASSOCIATIONS": "Associations",
-      "TYPES": "Catégories",
-      "NO_CATEGORIES": "Aucune catégorie disponible",
-      "DATE_RANGE": "Plage de dates",
-      "FROM": "Du",
-      "TO": "Au",
-      "APPLY": "Appliquer",
-      "RESET": "Réinitialiser",
-      "CLEAR_ALL": "Tout effacer",
-      "DATE_FROM_ONLY": "Depuis le {{from}}",
-      "DATE_TO_ONLY": "Jusqu'au {{to}}",
-      "DATE_RANGE_VALUE": "{{from}} → {{to}}",
-      "PERIOD": {
-        "TITLE": "Période",
-        "ALL": "Tous",
-        "UPCOMING": "À venir",
-        "PAST": "Passés"
-      }
+        "TITLE": "Filtres",
+        "OPEN": "Filtres",
+        "ASSOCIATIONS": "Associations",
+        "TYPES": "Catégories",
+        "NO_CATEGORIES": "Aucune catégorie disponible",
+        "DATE_RANGE": "Plage de dates",
+        "FROM": "Du",
+        "TO": "Au",
+        "APPLY": "Appliquer",
+        "RESET": "Réinitialiser",
+        "CLEAR_ALL": "Tout effacer",
+        "DATE_FROM_ONLY": "Depuis le {{from}}",
+        "DATE_TO_ONLY": "Jusqu'au {{to}}",
+        "DATE_RANGE_VALUE": "{{from}} → {{to}}",
+        "PERIOD": {
+            "TITLE": "Période",
+            "ALL": "Tous",
+            "UPCOMING": "À venir",
+            "PAST": "Passés"
+        }
     },
     "SORT": {
-      "TITLE": "Trier par",
-      "OPEN": "Trier",
-      "ASC": "Date (croissant)",
-      "DESC": "Date (décroissant)"
+        "TITLE": "Trier par",
+        "OPEN": "Trier",
+        "ASC": "Date (croissant)",
+        "DESC": "Date (décroissant)"
     }
-  }
 }
