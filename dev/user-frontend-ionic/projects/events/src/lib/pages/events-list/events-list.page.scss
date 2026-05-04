@@ -44,7 +44,7 @@ ion-content {
   overflow: visible;
   transition: all 0.3s ease;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  
+
   ion-icon {
     font-size: 22px;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -70,10 +70,90 @@ ion-content {
   justify-content: flex-end;
 }
 
-.events-active-chips {
+.events-control-button {
+  --border-radius: 999px;
+  --border-color: var(--ion-color-step-200, #e0e0e0);
+  --color: var(--ion-text-color);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  --padding-start: 14px;
+  --padding-end: 14px;
+}
+
+.events-filter-button {
+  position: relative;
+  overflow: visible;
+}
+
+.filter-count-badge {
+  align-items: center;
+  background: var(--ion-color-secondary);
+  border-radius: 999px;
+  color: var(--ion-color-secondary-contrast, #ffffff);
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  height: 18px;
+  justify-content: center;
+  margin-left: 8px;
+  min-width: 18px;
+  padding: 0 5px;
+  line-height: 1;
+}
+
+.event-filter-chips-row {
   display: flex;
-  flex-wrap: wrap;
-  padding: 4px 8px 8px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 16px 12px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+}
+
+.event-filter-chip {
+  align-items: center;
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid var(--ion-color-secondary);
+  border-radius: 999px;
+  color: var(--ion-color-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  scroll-snap-align: start;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+  white-space: nowrap;
+
+  ion-icon {
+    font-size: 1rem;
+  }
+
+  &:active {
+    background: rgba(239, 21, 78, 0.08);
+  }
+}
+
+.event-filter-chip--clear {
+  border-color: transparent;
+  background: transparent;
+  padding: 0 8px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 ion-modal.events-sheet-modal {

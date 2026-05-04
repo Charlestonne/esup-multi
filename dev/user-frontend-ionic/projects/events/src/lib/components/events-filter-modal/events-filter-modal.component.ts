@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { defaultEventsFilter, EventsFilter, EventsPeriodFilter } from '../../models/events-filter.model';
 
@@ -7,14 +7,17 @@ import { defaultEventsFilter, EventsFilter, EventsPeriodFilter } from '../../mod
   templateUrl: './events-filter-modal.component.html',
   styleUrls: ['./events-filter-modal.component.scss'],
 })
-export class EventsFilterModalComponent implements OnChanges {
+export class EventsFilterModalComponent implements OnChanges, OnDestroy {
   @Input() availableAssociations: string[] = [];
   @Input() availableTypes: string[] = [];
+  @Input() isLoading = false;
   @Input() currentFilter: EventsFilter = defaultEventsFilter;
 
   @Output() apply = new EventEmitter<EventsFilter>();
   @Output() reset = new EventEmitter<void>();
   @Output() dismiss = new EventEmitter<void>();
+
+  shimmerSlots = [0, 1, 2];
 
   form: FormGroup;
   periodOptions: { value: EventsPeriodFilter; labelKey: string }[] = [
@@ -37,6 +40,10 @@ export class EventsFilterModalComponent implements OnChanges {
     this.rebuildForm();
   }
 
+  ngOnDestroy(): void {
+    this.apply.emit(this.getCurrentValue());
+  }
+
   get associationsForm(): FormArray {
     return this.form.get('associationsForm') as FormArray;
   }
@@ -45,7 +52,7 @@ export class EventsFilterModalComponent implements OnChanges {
     return this.form.get('typesForm') as FormArray;
   }
 
-  onApply(): void {
+  getCurrentValue(): EventsFilter {
     const associations = this.availableAssociations.filter(
       (_, i) => this.associationsForm.at(i)?.value === true,
     );
@@ -53,17 +60,30 @@ export class EventsFilterModalComponent implements OnChanges {
       (_, i) => this.typesForm.at(i)?.value === true,
     );
 
-    this.apply.emit({
+    return {
       ...this.currentFilter,
       period: (this.form.get('period')?.value as EventsPeriodFilter) ?? this.currentFilter.period,
       associations,
       types,
       from: this.form.get('from')?.value || undefined,
       to: this.form.get('to')?.value || undefined,
-    });
+    };
+  }
+
+  onApply(): void {
+    this.apply.emit(this.getCurrentValue());
   }
 
   onReset(): void {
+    this.form.get('period')?.setValue(defaultEventsFilter.period);
+    this.form.get('from')?.setValue(null);
+    this.form.get('to')?.setValue(null);
+    for (let i = 0; i < this.associationsForm.length; i++) {
+      this.associationsForm.at(i).setValue(false);
+    }
+    for (let i = 0; i < this.typesForm.length; i++) {
+      this.typesForm.at(i).setValue(false);
+    }
     this.reset.emit();
   }
 
