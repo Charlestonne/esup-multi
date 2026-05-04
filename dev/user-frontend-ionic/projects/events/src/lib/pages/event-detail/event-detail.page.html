@@ -52,7 +52,7 @@
       </div>
 
       <!-- Description -->
-      <p class="detail-description" *ngIf="event.description">{{ event.description }}</p>
+      <div class="detail-description" *ngIf="event.description" [innerHTML]="event.description"></div>
 
       <!-- Lieu -->
       <div class="detail-location" *ngIf="event.location">
@@ -60,6 +60,21 @@
         <span>{{ event.location }}</span>
       </div>
       <div id="event-map" class="event-map" *ngIf="event.locationLat && event.locationLng"></div>
+
+      <!-- Site web -->
+      <div class="detail-website" *ngIf="event.websiteUrl">
+        <ion-button
+          [href]="event.websiteUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          expand="block"
+          fill="outline"
+          class="website-btn"
+        >
+          <ion-icon name="globe-outline" slot="start"></ion-icon>
+          Site web
+        </ion-button>
+      </div>
 
       <!-- Contact -->
       <div class="detail-contact" *ngIf="event.contactInfo">

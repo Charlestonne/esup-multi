@@ -176,6 +176,10 @@ $radius: 14px;
   background: $bg-card;
   border-radius: $radius;
   padding: 1rem 1.125rem;
+
+  p, ul, ol, h1, h2, h3, h4 { margin: 0 0 0.5rem; }
+  p:last-child { margin-bottom: 0; }
+  a { color: $blue; }
 }
 
 // ─── Lieu ─────────────────────────────────────────────────────────────────────
@@ -204,6 +208,20 @@ $radius: 14px;
   height: 180px;
   border-radius: $radius;
   overflow: hidden;
+}
+
+// ─── Site web ─────────────────────────────────────────────────────────────────
+
+.detail-website {
+  .website-btn {
+    --border-radius: 10px;
+    --box-shadow: none;
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: $f;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
 }
 
 // ─── Contact ──────────────────────────────────────────────────────────────────

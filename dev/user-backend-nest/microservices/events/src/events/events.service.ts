@@ -8,37 +8,51 @@ import { EventDto } from './events.dto';
 
 interface DirectusEvent {
   id: number;
+  status: string;
   name: string;
   description?: string;
-  organizer?: string;
-  source?: string;
+  organizer?: string | null;
   location?: string;
   startDate: string;
   endDate?: string;
   categories?: string[];
-  rawData?: { categories?: string[] };
+  rawData?: {
+    categories?: string[];
+    association?: { id: number; name: string; acronym?: string };
+    type?: { id: number; name: string; color?: string };
+    logo_url?: string;
+    website_url?: string;
+  };
   geo?: { type: string; coordinates: [number, number] };
-  Image?: string;
+  logo_url?: string;
+  website_url?: string;
+  external_id?: string;
 }
 
 function mapDirectusEvent(e: DirectusEvent): EventDto {
-  const categories = Array.isArray(e.categories) && e.categories.length > 0
-    ? e.categories
-    : e.rawData?.categories;
+  const categories =
+    Array.isArray(e.categories) && e.categories.length > 0
+      ? e.categories
+      : e.rawData?.categories;
+
+  const associationName = e.rawData?.association?.name || e.organizer || '';
+  const websiteUrl = e.website_url || (e.rawData?.website_url?.trim() ? e.rawData.website_url : null) || null;
+
   return {
     id: String(e.id),
     title: e.name,
     description: e.description || '',
-    creator: e.organizer || e.source || '',
+    creator: associationName,
     location: e.location || '',
     contactInfo: null,
-    association: e.source || null,
+    association: associationName || null,
     type: Array.isArray(categories) && categories.length > 0 ? categories[0] : null,
     startDate: e.startDate,
     endDate: e.endDate || null,
     locationLat: e.geo?.coordinates?.[1] ?? null,
     locationLng: e.geo?.coordinates?.[0] ?? null,
-    imageUrl: e.Image ? `http://localhost:8055/assets/${e.Image}` : null,
+    imageUrl: e.logo_url || e.rawData?.logo_url || null,
+    websiteUrl,
   };
 }
 
@@ -62,6 +76,9 @@ export class EventsService {
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ${this.eventsProviderApiConfig.bearerToken}`,
+        },
+        params: {
+          limit: -1,
         },
       })
       .pipe(
