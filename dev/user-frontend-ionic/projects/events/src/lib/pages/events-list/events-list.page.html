@@ -16,6 +16,16 @@
           {{ getActiveFilterCount(filter) }}
         </span>
       </ion-button>
+
+      <ion-button
+        *ngIf="hasFollowedOrganizers$ | async"
+        class="events-control-button events-followed-button"
+        [fill]="showFollowedOnly ? 'solid' : 'outline'"
+        (click)="toggleFollowedOnly()"
+      >
+        <ion-icon slot="start" [name]="showFollowedOnly ? 'heart' : 'heart-outline'"></ion-icon>
+        Mes orgas
+      </ion-button>
     </div>
 
     <div

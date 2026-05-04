@@ -2,11 +2,12 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import * as Leaflet from 'leaflet';
-import { firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom, of } from 'rxjs';
 import { Event } from '../../models/event.model';
 import { EventsService } from '../../events.service';
 import { selectEventById } from '../../events.repository';
 import { CalendarService } from '../../services/calendar.service';
+import { isFollowingOrganizer$, toggleFollowOrganizer } from '../../events-preferences.repository';
 
 @Component({
   selector: 'app-event-detail',
@@ -16,6 +17,7 @@ import { CalendarService } from '../../services/calendar.service';
 export class EventDetailPage implements OnDestroy {
   event: Event | undefined;
   isLoading = false;
+  isFollowing$: Observable<boolean> = of(false);
   private map: Leaflet.Map | undefined;
 
   constructor(
@@ -44,6 +46,9 @@ export class EventDetailPage implements OnDestroy {
       this.event = await firstValueFrom(selectEventById(id));
       this.isLoading = false;
     }
+    if (this.event?.creator) {
+      this.isFollowing$ = isFollowingOrganizer$(this.event.creator);
+    }
     if (this.event?.locationLat && this.event?.locationLng) {
       this.cdr.detectChanges(); // force le rendu du *ngIf avant que Leaflet cherche le div
       await this.initMap(this.event.locationLat, this.event.locationLng);
@@ -61,6 +66,10 @@ export class EventDetailPage implements OnDestroy {
 
   goBack() {
     this.location.back();
+  }
+
+  toggleFollow(): void {
+    if (this.event?.creator) toggleFollowOrganizer(this.event.creator);
   }
 
   getContactLinks(): string[] {

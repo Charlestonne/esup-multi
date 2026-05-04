@@ -7,6 +7,7 @@
   "FILTERS": {
     "TITLE": "Filtres",
     "OPEN": "Filtres",
+    "FOLLOWED_ONLY": "Mes orgas",
     "ASSOCIATIONS": "Associations",
     "TYPES": "Catégories",
     "NO_CATEGORIES": "Aucune catégorie disponible",
@@ -34,6 +35,8 @@
   },
   "DETAIL": {
     "ORGANIZER": "Organisateur",
+    "FOLLOW": "Suivre",
+    "FOLLOWING": "Suivi",
     "DATES": "Dates",
     "START_DATE": "Début",
     "END_DATE": "Fin",

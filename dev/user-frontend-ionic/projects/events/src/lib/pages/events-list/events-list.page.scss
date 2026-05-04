@@ -88,6 +88,16 @@ ion-content {
   overflow: visible;
 }
 
+.events-followed-button {
+  --border-color: var(--ion-color-secondary);
+  --color: var(--ion-color-secondary);
+
+  &.button-solid {
+    --background: var(--ion-color-secondary);
+    --color: var(--ion-color-secondary-contrast, #ffffff);
+  }
+}
+
 .filter-count-badge {
   align-items: center;
   background: var(--ion-color-secondary);

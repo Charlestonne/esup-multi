@@ -50,12 +50,21 @@ $radius: 14px;
   &__organizer {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    justify-content: space-between;
+    gap: 0.5rem;
     font-family: $f;
+  }
+
+  &__organizer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
 
     ion-icon {
       font-size: 1rem;
       color: rgba(239, 21, 78, 0.45);
+      flex-shrink: 0;
     }
   }
 
@@ -78,6 +87,24 @@ $radius: 14px;
     font-size: 0.8125rem;
     font-weight: 600;
     color: $text-body;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.follow-btn {
+  flex-shrink: 0;
+  --border-radius: 999px;
+  --color: #{$red};
+  --border-color: #{$red};
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: $f;
+
+  &.button-solid {
+    --background: #{$red};
+    --color: #ffffff;
   }
 }
 

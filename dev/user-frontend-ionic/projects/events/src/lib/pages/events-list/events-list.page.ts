@@ -2,15 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { NetworkService } from '@multi/shared';
-import { Observable, Subscription } from 'rxjs';
-import { debounceTime, finalize, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
+import { debounceTime, finalize, map, startWith, switchMap, take } from 'rxjs/operators';
 import { Event } from '../../models/event.model';
 import {
   defaultEventsFilter,
   EventsFilter,
   EventsSortOrder,
 } from '../../models/events-filter.model';
-import { events$ } from '../../events.repository';
+import { events$ as rawEvents$ } from '../../events.repository';
+import {
+  followedOrganizers$,
+  hasFollowedOrganizers$,
+} from '../../events-preferences.repository';
 import {
   eventsFilter$,
   getEventsFilterSnapshot,
@@ -26,7 +30,21 @@ import { EventsTabService } from '../../events-tab.service';
   styleUrls: ['./events-list.page.scss'],
 })
 export class EventsListPage implements OnInit, OnDestroy {
-  public events$: Observable<Event[]> = events$;
+  private showFollowedOnly$ = new BehaviorSubject<boolean>(false);
+  public showFollowedOnly = false;
+  public hasFollowedOrganizers$: Observable<boolean> = hasFollowedOrganizers$;
+
+  public events$: Observable<Event[]> = combineLatest([
+    rawEvents$,
+    followedOrganizers$.pipe(startWith([] as string[])),
+    this.showFollowedOnly$,
+  ]).pipe(
+    map(([events, followed, showOnly]) => {
+      if (!showOnly || followed.length === 0) return events;
+      return events.filter((e) => followed.includes(e.creator));
+    }),
+  );
+
   public filter$: Observable<EventsFilter> = eventsFilter$;
   public defaultFilter: EventsFilter = defaultEventsFilter;
   public availableAssociations: string[] = [];
@@ -167,6 +185,11 @@ export class EventsListPage implements OnInit, OnDestroy {
     } else if (value === 'feed') {
       this.navController.navigateRoot('/events/feed', { animated: false });
     }
+  }
+
+  toggleFollowedOnly(): void {
+    this.showFollowedOnly = !this.showFollowedOnly;
+    this.showFollowedOnly$.next(this.showFollowedOnly);
   }
 
   openSortModal(): void {
