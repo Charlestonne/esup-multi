@@ -4,57 +4,68 @@
 
   <ng-container *ngIf="filter$ | async as filter">
     <div class="events-controls-row">
-      <ion-button fill="outline" (click)="openSortModal()">
+      <ion-button class="events-control-button" fill="outline" (click)="openSortModal()">
         <ion-icon slot="start" [name]="filter.sortOrder === 'asc' ? 'arrow-up-outline' : 'arrow-down-outline'"></ion-icon>
         {{ 'EVENTS.SORT.OPEN' | translate }}
       </ion-button>
 
-      <ion-button fill="outline" (click)="openFilterModal()">
+      <ion-button class="events-control-button events-filter-button" fill="outline" (click)="openFilterModal()">
         <ion-icon slot="start" name="filter-outline"></ion-icon>
         {{ 'EVENTS.FILTERS.OPEN' | translate }}
+        <span class="filter-count-badge" *ngIf="getActiveFilterCount(filter) > 0">
+          {{ getActiveFilterCount(filter) }}
+        </span>
       </ion-button>
     </div>
 
     <div
-      class="events-active-chips"
-      *ngIf="filter.period !== 'all' || filter.associations.length > 0 || filter.types.length > 0 || filter.from || filter.to"
+      class="event-filter-chips-row"
+      *ngIf="getActiveFilterCount(filter) > 0"
     >
-      <ion-chip
+      <button
+        type="button"
+        class="event-filter-chip"
         *ngIf="filter.period !== 'all'"
-        color="tertiary"
-        outline="true"
         (click)="resetPeriod()"
       >
-        <ion-label>{{ 'EVENTS.FILTERS.PERIOD.' + (filter.period | uppercase) | translate }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-      <ion-chip
+        <span>{{ 'EVENTS.FILTERS.PERIOD.' + (filter.period | uppercase) | translate }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip"
         *ngFor="let asso of filter.associations"
-        color="primary"
-        outline="true"
         (click)="removeAssociation(asso)"
       >
-        <ion-label>{{ asso }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-      <ion-chip
+        <span>{{ asso }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip"
         *ngFor="let type of filter.types"
-        color="secondary"
-        outline="true"
         (click)="removeType(type)"
       >
-        <ion-label>{{ type }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
-      <ion-chip
+        <span>{{ type }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip"
         *ngIf="filter.from || filter.to"
-        color="medium"
-        outline="true"
         (click)="resetDateRange()"
       >
-        <ion-label>{{ filter.from || '…' }} → {{ filter.to || '…' }}</ion-label>
-        <ion-icon name="close-circle"></ion-icon>
-      </ion-chip>
+        <span>{{ formatDateRange(filter.from, filter.to) }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip event-filter-chip--clear"
+        *ngIf="getActiveFilterCount(filter) >= 2"
+        (click)="clearAllFilters()"
+      >
+        {{ 'EVENTS.FILTERS.CLEAR_ALL' | translate }}
+      </button>
     </div>
   </ng-container>
 
@@ -76,17 +87,17 @@
     class="events-sheet-modal"
     [isOpen]="isFilterOpen"
     (didDismiss)="closeFilterModal()"
-    [breakpoints]="[0, 0.8, 1]"
-    [initialBreakpoint]="0.8"
+    [breakpoints]="[0, 0.92]"
+    [initialBreakpoint]="0.92"
     [handle]="true"
   >
     <ng-template>
       <app-events-filter-modal
         [availableAssociations]="availableAssociations"
         [availableTypes]="availableTypes"
+        [isLoading]="isLoading"
         [currentFilter]="(filter$ | async) || defaultFilter"
         (apply)="onFilterApply($event)"
-        (reset)="onFilterReset()"
         (dismiss)="closeFilterModal()"
       ></app-events-filter-modal>
     </ng-template>

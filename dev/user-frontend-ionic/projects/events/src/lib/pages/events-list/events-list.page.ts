@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { NetworkService } from '@multi/shared';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, finalize, switchMap, take } from 'rxjs/operators';
@@ -43,6 +44,7 @@ export class EventsListPage implements OnInit, OnDestroy {
     private networkService: NetworkService,
     private navController: NavController,
     private eventsTabService: EventsTabService,
+    private translate: TranslateService,
   ) {
     this.activeTab$ = this.eventsTabService.getActiveTab();
   }
@@ -98,6 +100,46 @@ export class EventsListPage implements OnInit, OnDestroy {
 
   resetDateRange(): void {
     setEventsFilter({ from: undefined, to: undefined });
+  }
+
+  clearAllFilters(): void {
+    setEventsFilter({
+      period: 'all',
+      associations: [],
+      types: [],
+      from: undefined,
+      to: undefined,
+    });
+  }
+
+  getActiveFilterCount(filter: EventsFilter): number {
+    let count = 0;
+    if (filter.period !== 'all') {
+      count += 1;
+    }
+    count += filter.associations?.length ?? 0;
+    count += filter.types?.length ?? 0;
+    if (filter.from || filter.to) {
+      count += 1;
+    }
+    return count;
+  }
+
+  formatDateRange(from?: string, to?: string): string {
+    const locale = this.translate.currentLang || this.translate.defaultLang || 'fr';
+    const fmt = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' });
+    const fromLabel = from ? fmt.format(new Date(from)) : '';
+    const toLabel = to ? fmt.format(new Date(to)) : '';
+    if (from && to) {
+      return this.translate.instant('EVENTS.FILTERS.DATE_RANGE_VALUE', { from: fromLabel, to: toLabel });
+    }
+    if (from) {
+      return this.translate.instant('EVENTS.FILTERS.DATE_FROM_ONLY', { from: fromLabel });
+    }
+    if (to) {
+      return this.translate.instant('EVENTS.FILTERS.DATE_TO_ONLY', { to: toLabel });
+    }
+    return '';
   }
 
   openFilterModal(): void {

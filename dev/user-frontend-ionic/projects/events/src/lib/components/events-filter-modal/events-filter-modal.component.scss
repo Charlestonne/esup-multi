@@ -4,22 +4,46 @@
   height: 100%;
 }
 
-ion-toolbar {
-  --padding-start: 1rem;
-  --padding-end: 0.5rem;
+.events-filter-header ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  --padding-start: 0.75rem;
+  --padding-end: 0.75rem;
+  --min-height: 56px;
+}
+
+.events-filter-header ion-title {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  padding-inline: 0;
+}
+
+.filter-header-reset {
+  --color: var(--ion-color-secondary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.filter-header-close {
+  --color: var(--ion-color-medium-shade);
 }
 
 .events-filter-content {
-  --padding-bottom: 1rem;
+  --background: #faf4f5;
+  --padding-bottom: 2rem;
   --padding-end: 1.25rem;
   --padding-start: 1.25rem;
-  --padding-top: 1rem;
+  --padding-top: 0.5rem;
 }
 
 .filters-container {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem;
 }
 
 .filter-section {
@@ -29,11 +53,21 @@ ion-toolbar {
 }
 
 .filter-section-title {
-  color: var(--ion-text-color);
-  font-size: 0.95rem;
-  font-weight: 700;
+  color: var(--ion-color-medium-shade);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   line-height: 1.2;
   margin: 0;
+  text-transform: uppercase;
+}
+
+.filter-section-empty {
+  color: var(--ion-color-medium);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0;
+  padding: 0.25rem 0 0;
 }
 
 .filter-options {
@@ -50,14 +84,14 @@ ion-toolbar {
 .filter-option-button {
   align-items: center;
   appearance: none;
-  background: transparent;
-  border: 1px solid var(--ion-color-medium);
+  background: #ffffff;
+  border: 1px solid var(--ion-color-step-200, #e0e0e0);
   border-radius: 999px;
   color: var(--ion-text-color);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   height: 2.5rem;
   justify-content: center;
@@ -67,14 +101,41 @@ ion-toolbar {
   overflow: hidden;
   padding: 0 1rem;
   text-overflow: ellipsis;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
   white-space: nowrap;
 }
 
+.filter-option-button:hover {
+  border-color: var(--ion-color-step-400, #b0b0b0);
+}
+
+.filter-option-button:active:not(.filter-option-button--selected) {
+  background: rgba(239, 21, 78, 0.06);
+}
+
 .filter-option-button--selected {
-  background: var(--ion-color-dark);
-  border-color: var(--ion-color-dark);
-  color: var(--ion-color-dark-contrast);
+  background: var(--ion-color-secondary);
+  border-color: var(--ion-color-secondary);
+  color: var(--ion-color-secondary-contrast, #ffffff);
+  box-shadow: 0 2px 6px rgba(239, 21, 78, 0.25);
+}
+
+.filter-option-button--shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  border: 1px solid transparent;
+  animation: filter-shimmer 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes filter-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .filter-date-grid {
@@ -84,32 +145,30 @@ ion-toolbar {
 }
 
 .filter-date-field {
-  --background: transparent;
-  --border-radius: 0.875rem;
+  --background: #ffffff;
+  --border-radius: 14px;
   --inner-padding-end: 0;
   --padding-end: 0.875rem;
   --padding-start: 0.875rem;
 
-  border: 1px solid var(--ion-color-step-300);
-  border-radius: 0.875rem;
+  background: #ffffff;
+  border: 1px solid var(--ion-color-step-200, #e0e0e0);
+  border-radius: 14px;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.filter-date-field.item-has-focus,
+.filter-date-field:focus-within {
+  border-color: var(--ion-color-secondary);
+  box-shadow: 0 0 0 2px rgba(239, 21, 78, 0.25);
 }
 
 .filter-date-field ion-label {
-  color: var(--ion-color-medium);
+  color: var(--ion-color-medium-shade);
+  font-size: 0.78rem;
   font-weight: 600;
-}
-
-ion-footer ion-toolbar {
-  --background: var(--ion-color-light);
-  padding: 0 0.5rem;
-}
-
-ion-footer ion-button[fill='solid'] {
-  --background: var(--ion-color-dark);
-  --background-activated: var(--ion-color-step-850);
-  --background-focused: var(--ion-color-step-850);
-  --background-hover: var(--ion-color-step-850);
-  --color: var(--ion-color-dark-contrast);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 480px) {

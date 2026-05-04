@@ -1,8 +1,13 @@
-<ion-header>
+<ion-header class="events-filter-header">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="filter-header-reset" (click)="onReset()">
+        {{ 'EVENTS.FILTERS.RESET' | translate }}
+      </ion-button>
+    </ion-buttons>
     <ion-title>{{ 'EVENTS.FILTERS.TITLE' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="onDismiss()">
+      <ion-button class="filter-header-close" (click)="onDismiss()">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -11,6 +16,32 @@
 
 <ion-content [formGroup]="form" class="events-filter-content">
   <div class="filters-container">
+    <section class="filter-section">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.TYPES' | translate }}</h2>
+      <div class="filter-options" *ngIf="isLoading && availableTypes.length === 0">
+        <span
+          *ngFor="let slot of shimmerSlots"
+          class="filter-option-button filter-option-button--shimmer"
+          aria-hidden="true"
+        ></span>
+      </div>
+      <div class="filter-options" *ngIf="!isLoading && availableTypes.length > 0">
+        <button
+          *ngFor="let name of availableTypes; let i = index"
+          type="button"
+          class="filter-option-button"
+          [class.filter-option-button--selected]="isTypeSelected(i)"
+          [attr.aria-pressed]="isTypeSelected(i)"
+          (click)="toggleType(i)"
+        >
+          {{ name }}
+        </button>
+      </div>
+      <p class="filter-section-empty" *ngIf="!isLoading && availableTypes.length === 0">
+        {{ 'EVENTS.FILTERS.NO_CATEGORIES' | translate }}
+      </p>
+    </section>
+
     <section class="filter-section">
       <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.PERIOD.TITLE' | translate }}</h2>
       <div class="filter-options filter-period-options">
@@ -43,22 +74,6 @@
       </div>
     </section>
 
-    <section class="filter-section" *ngIf="availableTypes.length > 0">
-      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.TYPES' | translate }}</h2>
-      <div class="filter-options">
-        <button
-          *ngFor="let name of availableTypes; let i = index"
-          type="button"
-          class="filter-option-button"
-          [class.filter-option-button--selected]="isTypeSelected(i)"
-          [attr.aria-pressed]="isTypeSelected(i)"
-          (click)="toggleType(i)"
-        >
-          {{ name }}
-        </button>
-      </div>
-    </section>
-
     <section class="filter-section">
       <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.DATE_RANGE' | translate }}</h2>
       <div class="filter-date-grid">
@@ -74,18 +89,3 @@
     </section>
   </div>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="medium" (click)="onReset()">
-        {{ 'EVENTS.FILTERS.RESET' | translate }}
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="primary" fill="solid" (click)="onApply()">
-        {{ 'EVENTS.FILTERS.APPLY' | translate }}
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
