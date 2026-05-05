@@ -62,14 +62,6 @@
   text-transform: uppercase;
 }
 
-.filter-section-empty {
-  color: var(--ion-color-medium);
-  font-size: 0.9rem;
-  font-style: italic;
-  margin: 0;
-  padding: 0.25rem 0 0;
-}
-
 .filter-options {
   display: flex;
   flex-wrap: wrap;
@@ -118,24 +110,6 @@
   border-color: var(--ion-color-secondary);
   color: var(--ion-color-secondary-contrast, #ffffff);
   box-shadow: 0 2px 6px rgba(239, 21, 78, 0.25);
-}
-
-.filter-option-button--shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.04) 0%,
-    rgba(0, 0, 0, 0.08) 50%,
-    rgba(0, 0, 0, 0.04) 100%
-  );
-  background-size: 200% 100%;
-  border: 1px solid transparent;
-  animation: filter-shimmer 1.4s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes filter-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 
 .filter-date-grid {

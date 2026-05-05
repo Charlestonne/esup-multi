@@ -1,0 +1,30 @@
+<button
+  type="button"
+  class="ms-trigger"
+  [class.ms-trigger--disabled]="isEmpty"
+  [class.ms-trigger--loading]="isLoading && options.length === 0"
+  [attr.aria-haspopup]="'dialog'"
+  [attr.aria-disabled]="isEmpty || (isLoading && options.length === 0)"
+  [disabled]="isEmpty || (isLoading && options.length === 0)"
+  (click)="openPicker()"
+>
+  <span class="ms-trigger__top">
+    <span class="ms-trigger__label">{{ label }}</span>
+    <span class="ms-trigger__summary">
+      <ng-container *ngIf="isLoading && options.length === 0; else summaryText">
+        <span class="ms-trigger__shimmer" aria-hidden="true"></span>
+      </ng-container>
+      <ng-template #summaryText>
+        <ng-container *ngIf="isEmpty">{{ emptyText }}</ng-container>
+        <ng-container *ngIf="!isEmpty">{{ summary }}</ng-container>
+      </ng-template>
+      <ion-icon
+        *ngIf="!isEmpty && !(isLoading && options.length === 0)"
+        name="chevron-forward-outline"
+        class="ms-trigger__chevron"
+        aria-hidden="true"
+      ></ion-icon>
+    </span>
+  </span>
+  <span class="ms-trigger__preview" *ngIf="previewText && !isEmpty">{{ previewText }}</span>
+</button>
