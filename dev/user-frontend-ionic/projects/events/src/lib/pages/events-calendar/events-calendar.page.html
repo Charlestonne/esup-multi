@@ -98,6 +98,7 @@
             [style.background-color]="ev.color"
             (click)="navigateToEvent(ev.id)"
           >
+            <img *ngIf="ev.imageUrl" class="cal-event__logo" [src]="ev.imageUrl" aria-hidden="true" />
             <span class="cal-event__title">{{ ev.title }}</span>
             <span class="cal-event__time">
               {{ ev.startTime | date:'HH:mm' }} – {{ ev.endTime | date:'HH:mm' }}
@@ -138,6 +139,7 @@
             [style.background-color]="ev.color"
             (click)="navigateToEvent(ev.id)"
           >
+            <img *ngIf="ev.imageUrl" class="cal-event__logo" [src]="ev.imageUrl" aria-hidden="true" />
             <span class="cal-event__title">{{ ev.title }}</span>
           </div>
         </ng-container>

@@ -11,6 +11,7 @@ export interface CalendarEvent {
   endTime: Date;
   description?: string;
   color?: string;
+  imageUrl?: string;
 }
 
 export interface CalendarDay {
@@ -141,7 +142,8 @@ export class CalendarService {
       description: event.description,
       startTime: new Date(event.startDate),
       endTime: new Date(event.endDate),
-      color: this.getEventColor(event.type)
+      color: this.getEventColor(event.type),
+      imageUrl: event.imageUrl,
     };
   }
 
