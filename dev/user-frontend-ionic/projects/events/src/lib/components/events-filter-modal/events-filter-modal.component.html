@@ -18,28 +18,16 @@
   <div class="filters-container">
     <section class="filter-section">
       <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.TYPES' | translate }}</h2>
-      <div class="filter-options" *ngIf="isLoading && availableTypes.length === 0">
-        <span
-          *ngFor="let slot of shimmerSlots"
-          class="filter-option-button filter-option-button--shimmer"
-          aria-hidden="true"
-        ></span>
-      </div>
-      <div class="filter-options" *ngIf="!isLoading && availableTypes.length > 0">
-        <button
-          *ngFor="let name of availableTypes; let i = index"
-          type="button"
-          class="filter-option-button"
-          [class.filter-option-button--selected]="isTypeSelected(i)"
-          [attr.aria-pressed]="isTypeSelected(i)"
-          (click)="toggleType(i)"
-        >
-          {{ name }}
-        </button>
-      </div>
-      <p class="filter-section-empty" *ngIf="!isLoading && availableTypes.length === 0">
-        {{ 'EVENTS.FILTERS.NO_CATEGORIES' | translate }}
-      </p>
+      <app-multi-select-picker
+        [label]="'EVENTS.FILTERS.TYPES' | translate"
+        [modalTitle]="'EVENTS.FILTERS.CATEGORIES_PICKER_TITLE' | translate"
+        [searchPlaceholder]="'EVENTS.FILTERS.PICKER_SEARCH_PLACEHOLDER' | translate"
+        [emptyText]="'EVENTS.FILTERS.NO_CATEGORIES' | translate"
+        [options]="availableTypes"
+        [selected]="selectedTypes"
+        [isLoading]="isLoading"
+        (selectedChange)="onTypesChange($event)"
+      ></app-multi-select-picker>
     </section>
 
     <section class="filter-section">
@@ -58,20 +46,18 @@
       </div>
     </section>
 
-    <section class="filter-section" *ngIf="availableAssociations.length > 0">
+    <section class="filter-section" *ngIf="availableAssociations.length > 0 || isLoading">
       <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.ASSOCIATIONS' | translate }}</h2>
-      <div class="filter-options">
-        <button
-          *ngFor="let name of availableAssociations; let i = index"
-          type="button"
-          class="filter-option-button"
-          [class.filter-option-button--selected]="isAssociationSelected(i)"
-          [attr.aria-pressed]="isAssociationSelected(i)"
-          (click)="toggleAssociation(i)"
-        >
-          {{ name }}
-        </button>
-      </div>
+      <app-multi-select-picker
+        [label]="'EVENTS.FILTERS.ASSOCIATIONS' | translate"
+        [modalTitle]="'EVENTS.FILTERS.ASSOCIATIONS_PICKER_TITLE' | translate"
+        [searchPlaceholder]="'EVENTS.FILTERS.PICKER_SEARCH_PLACEHOLDER' | translate"
+        [emptyText]="'EVENTS.FILTERS.NO_ASSOCIATIONS' | translate"
+        [options]="availableAssociations"
+        [selected]="selectedAssociations"
+        [isLoading]="isLoading"
+        (selectedChange)="onAssociationsChange($event)"
+      ></app-multi-select-picker>
     </section>
 
     <section class="filter-section">

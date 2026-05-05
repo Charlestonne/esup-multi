@@ -12,6 +12,15 @@ export class EventsSortModalComponent {
   @Output() apply = new EventEmitter<EventsSortOrder>();
   @Output() dismiss = new EventEmitter<void>();
 
+  readonly sortOptions: Array<{ value: EventsSortOrder; labelKey: string }> = [
+    { value: 'asc', labelKey: 'EVENTS.SORT.ASC' },
+    { value: 'desc', labelKey: 'EVENTS.SORT.DESC' },
+  ];
+
+  isSortSelected(value: EventsSortOrder): boolean {
+    return this.currentSort === value;
+  }
+
   onSelect(value: EventsSortOrder): void {
     this.apply.emit(value);
   }

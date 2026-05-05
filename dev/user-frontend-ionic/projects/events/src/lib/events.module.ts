@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { EventDetailPage } from './pages/event-detail/event-detail.page';
 import { EventsFilterModalComponent } from './components/events-filter-modal/events-filter-modal.component';
 import { EventsSortModalComponent } from './components/events-sort-modal/events-sort-modal.component';
+import { MultiSelectPickerComponent } from './components/multi-select-picker/multi-select-picker.component';
+import { MultiSelectPickerModalComponent } from './components/multi-select-picker/multi-select-picker-modal.component';
 
 const initModule = (projectModuleService: ProjectModuleService) =>
   () =>
@@ -29,6 +31,8 @@ const initModule = (projectModuleService: ProjectModuleService) =>
     EventDetailPage,
     EventsFilterModalComponent,
     EventsSortModalComponent,
+    MultiSelectPickerComponent,
+    MultiSelectPickerModalComponent,
   ],
   providers: [
     {

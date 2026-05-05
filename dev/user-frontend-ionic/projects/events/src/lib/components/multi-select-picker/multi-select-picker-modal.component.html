@@ -1,0 +1,66 @@
+<ion-header class="picker-modal-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="picker-back" (click)="cancel()" [attr.aria-label]="'EVENTS.FILTERS.PICKER_BACK' | translate">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="picker-close" (click)="cancel()" [attr.aria-label]="'EVENTS.FILTERS.PICKER_BACK' | translate">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="picker-search-toolbar">
+    <ion-searchbar
+      #searchbar
+      [placeholder]="searchPlaceholder"
+      [debounce]="120"
+      (ionInput)="onSearchInput($event)"
+      class="picker-searchbar"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="picker-modal-content">
+  <ion-list lines="none" class="picker-list" *ngIf="filteredOptions.length > 0; else emptyState">
+    <ion-item
+      *ngFor="let option of filteredOptions; trackBy: undefined"
+      button
+      detail="false"
+      class="picker-item"
+      [class.picker-item--selected]="isSelected(option)"
+      (click)="toggle(option)"
+    >
+      <ion-checkbox
+        slot="start"
+        [checked]="isSelected(option)"
+        (ionChange)="toggle(option)"
+        (click)="$event.stopPropagation()"
+        aria-hidden="false"
+      ></ion-checkbox>
+      <ion-label class="picker-item-label">{{ option }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #emptyState>
+    <p class="picker-empty">{{ 'EVENTS.FILTERS.PICKER_EMPTY_SEARCH' | translate }}</p>
+  </ng-template>
+</ion-content>
+
+<ion-footer class="picker-modal-footer">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="picker-clear" (click)="clear()">
+        {{ 'EVENTS.FILTERS.PICKER_CLEAR' | translate }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button class="picker-apply" (click)="apply()">
+        {{ 'EVENTS.FILTERS.PICKER_APPLY' | translate }}
+        <span class="picker-apply-count" *ngIf="selectedCount > 0">({{ selectedCount }})</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
