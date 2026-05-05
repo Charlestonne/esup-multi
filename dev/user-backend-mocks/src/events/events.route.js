@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const DIRECTUS_URL = 'http://localhost:8055/items/events';
+const DIRECTUS_URL = 'http://localhost:8055/items/events?fields=*,organizer.name';
 
 function mapEvent(e) {
   return {
     id: String(e.id),
     title: e.name,
     description: e.description || '',
-    creator: e.organizer || e.source || '',
+    creator: e.organizer?.name || e.organizer || e.source || '',
     location: e.location || '',
     locationLat: e.geo?.coordinates?.[1] ?? null,
     locationLng: e.geo?.coordinates?.[0] ?? null,
