@@ -113,7 +113,7 @@ export class EventsListPage implements OnInit, OnDestroy {
   }
 
   resetPeriod(): void {
-    setEventsFilter({ period: 'all' });
+    setEventsFilter({ period: defaultEventsFilter.period });
   }
 
   resetDateRange(): void {
@@ -122,7 +122,7 @@ export class EventsListPage implements OnInit, OnDestroy {
 
   clearAllFilters(): void {
     setEventsFilter({
-      period: 'all',
+      period: defaultEventsFilter.period,
       associations: [],
       types: [],
       from: undefined,
@@ -132,7 +132,7 @@ export class EventsListPage implements OnInit, OnDestroy {
 
   getActiveFilterCount(filter: EventsFilter): number {
     let count = 0;
-    if (filter.period !== 'all') {
+    if (filter.period !== defaultEventsFilter.period) {
       count += 1;
     }
     count += filter.associations?.length ?? 0;
