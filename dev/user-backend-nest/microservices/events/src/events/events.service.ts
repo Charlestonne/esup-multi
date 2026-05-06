@@ -71,12 +71,18 @@ export class EventsService {
 
   getEvents(): Observable<EventDto[]> {
     this.logger.log('*** get events');
+    const headers: Record<string, string> = {
+      Accept: 'application/json',
+    };
+    const bearerToken = this.eventsProviderApiConfig.bearerToken?.trim();
+
+    if (bearerToken) {
+      headers.Authorization = `Bearer ${bearerToken}`;
+    }
+
     return this.httpService
       .get<{ data: DirectusEvent[] }>(this.eventsProviderApiConfig.apiUrl, {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${this.eventsProviderApiConfig.bearerToken}`,
-        },
+        headers,
         params: {
           limit: -1,
         },
