@@ -1,0 +1,127 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.picker-modal-header ion-toolbar {
+  --background: #ffffff;
+  --border-width: 0;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --min-height: 52px;
+}
+
+.picker-modal-header ion-title {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  padding-inline: 0;
+}
+
+.picker-back,
+.picker-close {
+  --color: var(--ion-color-medium-shade);
+}
+
+.picker-search-toolbar {
+  --background: #ffffff;
+  --padding-top: 0;
+  --padding-bottom: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+}
+
+.picker-searchbar {
+  --background: #f3eef0;
+  --border-radius: 12px;
+  --box-shadow: none;
+  --color: var(--ion-text-color);
+  --placeholder-color: var(--ion-color-medium);
+  --icon-color: var(--ion-color-medium-shade);
+  padding-inline: 0;
+  padding-bottom: 0;
+}
+
+.picker-modal-content {
+  --background: #faf4f5;
+  --padding-top: 0.25rem;
+  --padding-bottom: 0.5rem;
+  --padding-start: 0.75rem;
+  --padding-end: 0.75rem;
+}
+
+.picker-list {
+  background: transparent;
+  padding: 0;
+}
+
+.picker-item {
+  --background: #ffffff;
+  --background-hover: rgba(239, 21, 78, 0.04);
+  --background-activated: rgba(239, 21, 78, 0.08);
+  --border-radius: 12px;
+  --inner-padding-end: 0.75rem;
+  --padding-start: 0.75rem;
+  --min-height: 52px;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--ion-color-step-150, #ececec);
+  border-radius: 12px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.picker-item--selected {
+  border-color: var(--ion-color-secondary);
+  box-shadow: 0 2px 6px rgba(239, 21, 78, 0.18);
+}
+
+.picker-item ion-checkbox {
+  --size: 1.25rem;
+  --checkbox-background-checked: var(--ion-color-secondary);
+  --border-color-checked: var(--ion-color-secondary);
+  --border-radius: 6px;
+  margin-inline-end: 0.75rem;
+}
+
+.picker-item-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: normal;
+}
+
+.picker-empty {
+  color: var(--ion-color-medium);
+  font-size: 0.95rem;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 1rem;
+  margin: 0;
+}
+
+.picker-modal-footer ion-toolbar {
+  --background: #ffffff;
+  --border-width: 0;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --min-height: 56px;
+  box-shadow: 0 -1px 0 var(--ion-color-step-150, #ececec);
+}
+
+.picker-clear {
+  --color: var(--ion-color-medium-shade);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.picker-apply {
+  --color: var(--ion-color-secondary);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.picker-apply-count {
+  margin-inline-start: 0.25rem;
+}

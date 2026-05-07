@@ -1,0 +1,29 @@
+<ion-header class="events-sort-header">
+  <ion-toolbar>
+    <ion-title>{{ 'EVENTS.SORT.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="sort-header-close" (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="events-sort-content">
+  <div class="sort-container">
+    <section class="sort-section">
+      <div class="sort-options">
+        <button
+          *ngFor="let option of sortOptions"
+          type="button"
+          class="sort-option-button"
+          [class.sort-option-button--selected]="isSortSelected(option.value)"
+          [attr.aria-pressed]="isSortSelected(option.value)"
+          (click)="onSelect(option.value)"
+        >
+          {{ option.labelKey | translate }}
+        </button>
+      </div>
+    </section>
+  </div>
+</ion-content>

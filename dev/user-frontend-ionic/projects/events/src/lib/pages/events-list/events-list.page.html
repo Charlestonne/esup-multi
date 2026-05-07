@@ -1,0 +1,145 @@
+<app-header [backRouterLink]="urlBeforeEvents"></app-header>
+<ion-content>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ng-container *ngIf="filter$ | async as filter">
+    <div class="events-controls-row">
+      <ion-button class="events-control-button" fill="outline" (click)="openSortModal()">
+        <ion-icon slot="start" [name]="filter.sortOrder === 'asc' ? 'arrow-up-outline' : 'arrow-down-outline'"></ion-icon>
+        {{ 'EVENTS.SORT.OPEN' | translate }}
+      </ion-button>
+
+      <ion-button class="events-control-button events-filter-button" fill="outline" (click)="openFilterModal()">
+        <ion-icon slot="start" name="filter-outline"></ion-icon>
+        {{ 'EVENTS.FILTERS.OPEN' | translate }}
+        <span class="filter-count-badge" *ngIf="getActiveFilterCount(filter) > 0">
+          {{ getActiveFilterCount(filter) }}
+        </span>
+      </ion-button>
+
+      <ion-button
+        *ngIf="hasFollowedOrganizers$ | async"
+        class="events-control-button events-followed-button"
+        [fill]="showFollowedOnly ? 'solid' : 'outline'"
+        (click)="toggleFollowedOnly()"
+      >
+        <ion-icon slot="start" [name]="showFollowedOnly ? 'heart' : 'heart-outline'"></ion-icon>
+        Mes orgas
+      </ion-button>
+    </div>
+
+    <div
+      class="event-filter-chips-row"
+      *ngIf="getActiveFilterCount(filter) > 0"
+    >
+      <button
+        type="button"
+        class="event-filter-chip"
+        *ngIf="filter.period !== 'upcoming'"
+        (click)="resetPeriod()"
+      >
+        <span>{{ 'EVENTS.FILTERS.PERIOD.' + (filter.period | uppercase) | translate }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip"
+        *ngFor="let asso of filter.associations"
+        (click)="removeAssociation(asso)"
+      >
+        <span>{{ asso }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip"
+        *ngFor="let type of filter.types"
+        (click)="removeType(type)"
+      >
+        <span>{{ type }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip"
+        *ngIf="filter.from || filter.to"
+        (click)="resetDateRange()"
+      >
+        <span>{{ formatDateRange(filter.from, filter.to) }}</span>
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button
+        type="button"
+        class="event-filter-chip event-filter-chip--clear"
+        *ngIf="getActiveFilterCount(filter) >= 2"
+        (click)="clearAllFilters()"
+      >
+        {{ 'EVENTS.FILTERS.CLEAR_ALL' | translate }}
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="events$ | async as events">
+    <div class="events-list-container" *ngIf="events.length > 0; else empty">
+      <app-event-card
+        *ngFor="let event of events"
+        [event]="event"
+      ></app-event-card>
+    </div>
+    <ng-template #empty>
+      <ion-row class="ion-margin ion-justify-content-center" *ngIf="!isLoading">
+        <ion-text>{{ 'EVENTS.NO_DATA' | translate }}</ion-text>
+      </ion-row>
+    </ng-template>
+  </ng-container>
+
+  <ion-modal
+    class="events-sheet-modal"
+    [isOpen]="isFilterOpen"
+    (didDismiss)="closeFilterModal()"
+    [breakpoints]="[0, 0.92]"
+    [initialBreakpoint]="0.92"
+    [handle]="true"
+  >
+    <ng-template>
+      <app-events-filter-modal
+        [availableAssociations]="availableAssociations"
+        [availableTypes]="availableTypes"
+        [isLoading]="isLoading"
+        [currentFilter]="(filter$ | async) || defaultFilter"
+        (apply)="onFilterApply($event)"
+        (dismiss)="closeFilterModal()"
+      ></app-events-filter-modal>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal
+    class="events-sheet-modal"
+    [isOpen]="isSortOpen"
+    (didDismiss)="closeSortModal()"
+    [breakpoints]="[0, 0.5]"
+    [initialBreakpoint]="0.5"
+    [handle]="true"
+  >
+    <ng-template>
+      <app-events-sort-modal
+        [currentSort]="((filter$ | async)?.sortOrder) || 'asc'"
+        (apply)="onSortApply($event)"
+        (dismiss)="closeSortModal()"
+      ></app-events-sort-modal>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<ion-footer class="events-footer" mode="ios">
+  <ion-toolbar class="events-toolbar">
+    <ion-segment [value]="activeTab$ | async" (ionChange)="onSegmentChange($event)" class="events-segment" mode="ios">
+      <ion-segment-button value="feed" layout="icon-top" class="events-segment-button">
+        <ion-icon name="list-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="calendar" layout="icon-top" class="events-segment-button">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,38 @@
+<div class="event-card" [routerLink]="['/events', event.id]">
+  <div class="event-card__body">
+
+    <div class="event-card__header">
+      <div class="event-card__header-left">
+        <span class="event-card__type" [ngStyle]="getCategoryStyle(event.type)">
+          {{ event.type || 'Catégorie non précisée' }}
+        </span>
+        <span class="event-card__association" *ngIf="event.association">{{ event.association }}</span>
+      </div>
+      <img
+        *ngIf="event.imageUrl"
+        class="event-card__logo"
+        [src]="event.imageUrl"
+        [alt]="event.association"
+      />
+    </div>
+
+    <h2 class="event-card__title">{{ event.title }}</h2>
+
+    <div class="event-card__infos">
+      <div class="event-card__info-row">
+        <div class="event-card__icon-box event-card__icon-box--date">
+          <ion-icon name="calendar-clear-outline"></ion-icon>
+        </div>
+        <span class="event-card__info-text event-card__info-text--strong">{{ event.startDate | date:'dd/MM/yyyy • HH:mm' }}</span>
+      </div>
+
+      <div class="event-card__info-row" *ngIf="event.location">
+        <div class="event-card__icon-box event-card__icon-box--location">
+          <ion-icon name="location-outline"></ion-icon>
+        </div>
+        <span class="event-card__info-text">{{ event.location }}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

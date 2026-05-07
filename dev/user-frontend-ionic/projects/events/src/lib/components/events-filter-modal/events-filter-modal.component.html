@@ -1,0 +1,77 @@
+<ion-header class="events-filter-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="filter-header-reset" (click)="onReset()">
+        {{ 'EVENTS.FILTERS.RESET' | translate }}
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'EVENTS.FILTERS.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="filter-header-close" (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [formGroup]="form" class="events-filter-content">
+  <div class="filters-container">
+    <section class="filter-section">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.TYPES' | translate }}</h2>
+      <app-multi-select-picker
+        [label]="'EVENTS.FILTERS.TYPES' | translate"
+        [modalTitle]="'EVENTS.FILTERS.CATEGORIES_PICKER_TITLE' | translate"
+        [searchPlaceholder]="'EVENTS.FILTERS.PICKER_SEARCH_PLACEHOLDER' | translate"
+        [emptyText]="'EVENTS.FILTERS.NO_CATEGORIES' | translate"
+        [options]="availableTypes"
+        [selected]="selectedTypes"
+        [isLoading]="isLoading"
+        (selectedChange)="onTypesChange($event)"
+      ></app-multi-select-picker>
+    </section>
+
+    <section class="filter-section">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.PERIOD.TITLE' | translate }}</h2>
+      <div class="filter-options filter-period-options">
+        <button
+          *ngFor="let option of periodOptions"
+          type="button"
+          class="filter-option-button"
+          [class.filter-option-button--selected]="isPeriodSelected(option.value)"
+          [attr.aria-pressed]="isPeriodSelected(option.value)"
+          (click)="setPeriod(option.value)"
+        >
+          {{ option.labelKey | translate }}
+        </button>
+      </div>
+    </section>
+
+    <section class="filter-section" *ngIf="availableAssociations.length > 0 || isLoading">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.ASSOCIATIONS' | translate }}</h2>
+      <app-multi-select-picker
+        [label]="'EVENTS.FILTERS.ASSOCIATIONS' | translate"
+        [modalTitle]="'EVENTS.FILTERS.ASSOCIATIONS_PICKER_TITLE' | translate"
+        [searchPlaceholder]="'EVENTS.FILTERS.PICKER_SEARCH_PLACEHOLDER' | translate"
+        [emptyText]="'EVENTS.FILTERS.NO_ASSOCIATIONS' | translate"
+        [options]="availableAssociations"
+        [selected]="selectedAssociations"
+        [isLoading]="isLoading"
+        (selectedChange)="onAssociationsChange($event)"
+      ></app-multi-select-picker>
+    </section>
+
+    <section class="filter-section">
+      <h2 class="filter-section-title">{{ 'EVENTS.FILTERS.DATE_RANGE' | translate }}</h2>
+      <div class="filter-date-grid">
+        <ion-item lines="none" class="filter-date-field">
+          <ion-label position="stacked">{{ 'EVENTS.FILTERS.FROM' | translate }}</ion-label>
+          <ion-input type="date" formControlName="from"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="filter-date-field">
+          <ion-label position="stacked">{{ 'EVENTS.FILTERS.TO' | translate }}</ion-label>
+          <ion-input type="date" formControlName="to"></ion-input>
+        </ion-item>
+      </div>
+    </section>
+  </div>
+</ion-content>

@@ -83,6 +83,7 @@ export class AppController {
     @Inject('RESTAURANTS_SERVICE') private restaurantsClient: ClientProxy,
     @Inject('STATISTICS_SERVICE') private statisticsClient: ClientProxy,
     @Inject('MAIL_CALENDAR_SERVICE') private mailCalendarClient: ClientProxy,
+    @Inject('EVENTS_SERVICE') private eventsClient: ClientProxy,
   ) {}
 
   @Post('/features')
@@ -773,6 +774,29 @@ export class AppController {
           ),
         ),
       );
+  }
+
+  @Get('/events')
+  getEvents(@Query() queryParams) {
+    const toArray = (value: unknown): string[] | undefined => {
+      if (value === undefined || value === null || value === '') {
+        return undefined;
+      }
+      if (Array.isArray(value)) {
+        return value.map(String);
+      }
+      return String(value).split(',').map((s) => s.trim()).filter(Boolean);
+    };
+
+    const filter = {
+      associations: toArray(queryParams.associations),
+      types: toArray(queryParams.types),
+      period: queryParams.period,
+      from: queryParams.from,
+      to: queryParams.to,
+      sortOrder: queryParams.sortOrder,
+    };
+    return this.eventsClient.send({ cmd: 'events' }, filter);
   }
 
   @Get('/version')

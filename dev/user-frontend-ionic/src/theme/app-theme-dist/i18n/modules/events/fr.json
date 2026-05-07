@@ -1,0 +1,58 @@
+{
+  "TITLE": "Événements",
+  "FEED": "Flux",
+  "CALENDAR": "Calendrier",
+  "CALENDAR_PLACEHOLDER": "Le calendrier des événements sera bientôt disponible.",
+  "NO_DATA": "Aucun événement trouvé",
+  "FILTERS": {
+    "TITLE": "Filtres",
+    "OPEN": "Filtres",
+    "FOLLOWED_ONLY": "Mes orgas",
+    "ASSOCIATIONS": "Associations",
+    "TYPES": "Catégories",
+    "NO_CATEGORIES": "Aucune catégorie disponible",
+        "NO_ASSOCIATIONS": "Aucune association disponible",
+        "CATEGORIES_PICKER_TITLE": "Choisir des catégories",
+        "ASSOCIATIONS_PICKER_TITLE": "Choisir des associations",
+        "PICKER_SEARCH_PLACEHOLDER": "Rechercher...",
+        "PICKER_NONE_SELECTED": "Aucune sélection",
+        "PICKER_SELECTED_COUNT": "{{count}} sélectionnée(s)",
+        "PICKER_APPLY": "Appliquer",
+        "PICKER_CLEAR": "Effacer",
+        "PICKER_BACK": "Retour",
+        "PICKER_EMPTY_SEARCH": "Aucun résultat",
+    "DATE_RANGE": "Plage de dates",
+    "FROM": "Du",
+    "TO": "Au",
+    "APPLY": "Appliquer",
+    "RESET": "Réinitialiser",
+    "CLEAR_ALL": "Tout effacer",
+    "DATE_FROM_ONLY": "Depuis le {{from}}",
+    "DATE_TO_ONLY": "Jusqu'au {{to}}",
+    "DATE_RANGE_VALUE": "{{from}} → {{to}}",
+    "PERIOD": {
+      "TITLE": "Période",
+      "ALL": "Tous",
+      "UPCOMING": "À venir",
+      "PAST": "Passés"
+    }
+  },
+  "SORT": {
+    "TITLE": "Trier par",
+    "OPEN": "Trier",
+    "ASC": "Date (croissant)",
+    "DESC": "Date (décroissant)"
+  },
+  "DETAIL": {
+    "ORGANIZER": "Organisateur",
+    "FOLLOW": "Suivre",
+    "FOLLOWING": "Suivi",
+    "DATES": "Dates",
+    "START_DATE": "Début",
+    "END_DATE": "Fin",
+    "LOCATION": "Lieu",
+    "DESCRIPTION": "Description",
+    "MAP": "Localisation",
+    "CONTACT": "Contacter l'organisateur"
+  }
+}

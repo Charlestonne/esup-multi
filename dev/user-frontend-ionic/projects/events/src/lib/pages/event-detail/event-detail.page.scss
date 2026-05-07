@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+$f: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+$blue: var(--ion-color-tertiary);
+$red: var(--ion-color-secondary);
+$text-strong: #111827;
+$text-body: #374151;
+$text-muted: #9ca3af;
+$bg-page: #faf4f5;
+$bg-card: #ffffff;
+$radius: 14px;
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.detail-head {
+  background: linear-gradient(170deg, rgba(239, 21, 78, 0.07) 0%, #ffffff 55%);
+
+  &__accent {
+    height: 5px;
+    background: var(--ion-color-secondary);
+  }
+
+  &__body {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+
+  &__type {
+    display: inline-block;
+    font-family: $f;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    margin-bottom: 0.6rem;
+  }
+
+  &__title {
+    font-family: $f;
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: $text-strong;
+    margin: 0 0 0.875rem;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+  }
+
+  &__organizer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-family: $f;
+  }
+
+  &__organizer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+
+    ion-icon {
+      font-size: 1rem;
+      color: rgba(239, 21, 78, 0.45);
+      flex-shrink: 0;
+    }
+  }
+
+  &__logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+  }
+
+  &__by {
+    font-size: 0.8125rem;
+    color: $text-muted;
+    font-weight: 500;
+  }
+
+  &__creator {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $text-body;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.follow-btn {
+  flex-shrink: 0;
+  --border-radius: 999px;
+  --color: #{$red};
+  --border-color: #{$red};
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: $f;
+
+  &.button-solid {
+    --background: #{$red};
+    --color: #ffffff;
+  }
+}
+
+// ─── Body ─────────────────────────────────────────────────────────────────────
+
+.detail-body {
+  display: flex;
+  flex-direction: column;
+  background: $bg-page;
+  padding: 1rem 1rem 3.5rem;
+  gap: 0.75rem;
+}
+
+// ─── Dates ────────────────────────────────────────────────────────────────────
+
+.detail-dates {
+  background: $bg-card;
+  border-radius: $radius;
+  padding: 1rem 1.125rem;
+}
+
+.date-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: $f;
+
+  ion-icon {
+    font-size: 1.1rem;
+    color: $blue;
+    flex-shrink: 0;
+  }
+
+  &__date {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: $text-strong;
+  }
+
+  &__sep {
+    color: #d1d5db;
+    font-size: 0.9rem;
+  }
+
+  &__time {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--ion-color-secondary);
+    background: rgba(239, 21, 78, 0.09);
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+  }
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $f;
+
+  &__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  &__label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: $text-muted;
+  }
+
+  &__val {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    color: $text-strong;
+    letter-spacing: -0.01em;
+  }
+
+  &__time {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ion-color-secondary);
+  }
+
+  &__arrow {
+    font-size: 1.1rem;
+    color: #d1d5db;
+    flex-shrink: 0;
+  }
+}
+
+// ─── Description ──────────────────────────────────────────────────────────────
+
+.detail-description {
+  font-family: $f;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: $text-body;
+  margin: 0;
+  background: $bg-card;
+  border-radius: $radius;
+  padding: 1rem 1.125rem;
+
+  p, ul, ol, h1, h2, h3, h4 { margin: 0 0 0.5rem; }
+  p:last-child { margin-bottom: 0; }
+  a { color: $blue; }
+}
+
+// ─── Lieu ─────────────────────────────────────────────────────────────────────
+
+.detail-location {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-family: $f;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $text-body;
+  background: $bg-card;
+  border-radius: $radius;
+  padding: 1rem 1.125rem;
+
+  ion-icon {
+    font-size: 1.1rem;
+    color: $red;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+}
+
+.event-map {
+  height: 180px;
+  border-radius: $radius;
+  overflow: hidden;
+}
+
+// ─── Site web ─────────────────────────────────────────────────────────────────
+
+.detail-website {
+  .website-btn {
+    --border-radius: 10px;
+    --box-shadow: none;
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: $f;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+}
+
+// ─── Contact ──────────────────────────────────────────────────────────────────
+
+.detail-contact {
+  background: rgba(239, 21, 78, 0.05);
+  border: 1px solid rgba(239, 21, 78, 0.12);
+  border-radius: $radius;
+  padding: 1rem 1.125rem;
+
+  &__label {
+    font-family: $f;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(239, 21, 78, 0.6);
+    margin: 0 0 0.75rem;
+  }
+}
+
+.contact-btn {
+  --background: var(--ion-color-primary);
+  --border-radius: 10px;
+  --box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: $f;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.contact-phone {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: $f;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $text-body;
+  padding: 0.35rem 0;
+
+  ion-icon {
+    font-size: 1.1rem;
+    color: $red;
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,100 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.events-sort-header ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  --padding-start: 0.75rem;
+  --padding-end: 0.75rem;
+  --min-height: 56px;
+}
+
+.events-sort-header ion-title {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  padding-inline: 0;
+}
+
+.sort-header-close {
+  --color: var(--ion-color-medium-shade);
+}
+
+.events-sort-content {
+  --background: #faf4f5;
+  --padding-bottom: 2rem;
+  --padding-end: 1.25rem;
+  --padding-start: 1.25rem;
+  --padding-top: 0.5rem;
+}
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.sort-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sort-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sort-option-button {
+  align-items: center;
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid var(--ion-color-step-200, #e0e0e0);
+  border-radius: 999px;
+  color: var(--ion-text-color);
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 0;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1;
+  min-width: 6.5rem;
+  padding: 0 1rem;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  white-space: nowrap;
+}
+
+.sort-option-button:hover {
+  border-color: var(--ion-color-step-400, #b0b0b0);
+}
+
+.sort-option-button:active:not(.sort-option-button--selected) {
+  background: rgba(239, 21, 78, 0.06);
+}
+
+.sort-option-button--selected {
+  background: var(--ion-color-secondary);
+  border-color: var(--ion-color-secondary);
+  color: var(--ion-color-secondary-contrast, #ffffff);
+  box-shadow: 0 2px 6px rgba(239, 21, 78, 0.25);
+}
+
+@media (max-width: 480px) {
+  .events-sort-content {
+    --padding-end: 1rem;
+    --padding-start: 1rem;
+  }
+
+  .sort-option-button {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: 0;
+  }
+}
